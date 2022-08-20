@@ -10,7 +10,7 @@ import Mypage from "../pages/Mypage";
 import Messages from "../pages/Messages";
 import UpdateMessage from "pages/UpdateMessage";
 import Alarm from "../pages/Alarm";
-
+import Maxim from "../pages/Maxim";
 
 const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
     return (
@@ -60,7 +60,7 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                     path="/first"
                     element={
                         <First
-                          isLoggedIn={isLoggedIn}
+                            isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}
                         />
@@ -100,7 +100,7 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                 <Route
                     path="/updatemessage"
                     element={
-                      <Messages
+                        <Messages
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}
@@ -110,7 +110,17 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                 <Route
                     path="/alarm"
                     element={
-                      <Alarm
+                        <Alarm
+                            isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/maxim"
+                    element={
+                        <Maxim
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}
