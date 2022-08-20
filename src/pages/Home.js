@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
 
-import styled, {css} from 'styled-components';
+import styled, { css } from "styled-components";
 import Link from "../components/Link";
 import Page from "../components/Page";
 import Text from "../components/Text";
@@ -10,167 +10,208 @@ import Button from "../components/Button";
 import NavBar from "components/NavBar";
 import CircularGraph from "components/CircularGraph";
 
-
 const Home = ({ isLoggedIn, userObj }) => {
-  /*
-    const [sleepTime, setSleepTime] = useState("");
-    const [editSleepTime, setEditSleepTime] = useState("");
-    const [wakeTime, setWakeTime] = useState("");
-    const [sleepInfo, setSleepInfo] = useState(null);
-    const [sleepInfoInit, setSleepInfoInit] = useState(false);
-    const [editWakeTimeHour, setEditWakeTimeHour] = useState("");
-    const [editWakeTimeMinute, setEditWakeTimeMinute] = useState("");
-    const [sleepStartTime, setSleepStartTime] = useState("");
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (userObj) {
-            dbService.collection("수면정보").onSnapshot((snapshot) => {
-                const sleepInfoArray = snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                }));
-
-                const mySleepInfo = sleepInfoArray.find(
-                    (e) => e.user === userObj.uid
-                );
-                setSleepInfo(mySleepInfo);
-                setSleepTime(mySleepInfo.sleepTime);
-                setWakeTime(mySleepInfo.wakeTime);
-                const wTime = mySleepInfo.wakeTime.split(":");
-                console.log(wTime[1]);
-                setEditWakeTimeHour(wTime[0]);
-                setEditWakeTimeMinute(wTime[1]);
-            });
-            setSleepInfoInit(true);
-        }
-    }, [userObj]);
-
-    useEffect(() => {
-        let hr = wakeTime.split(":")[0] - sleepTime;
-        if (hr < 0) {
-            hr = hr + 24;
-        }
-        console.log("취침시각", hr);
-        console.log(typeof hr);
-
-        if (hr < 10) {
-            hr = "0" + hr;
-        }
-        console.log(hr);
-        setSleepStartTime(hr + ":" + wakeTime.split(":")[1]);
-    }, [wakeTime, sleepTime]);
-
-    const onChange = (event) => {
-        const {
-            target: { name, value },
-        } = event;
-        if (name === "editWakeTimeHour") {
-            setEditWakeTimeHour(value);
-        } else if (name === "editWakeTimeMinute") {
-            setEditWakeTimeMinute(value);
-        } else if (name === "editSleepTime") {
-            setEditSleepTime(value);
-        }
-    };
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        console.log(sleepInfo);
-        // console.log(wakeTimeHour, wakeTimeMinute, sleepTime);
-        await dbService.doc(`수면정보/${sleepInfo.id}`).update({
-            wakeTime: editWakeTimeHour + ":" + editWakeTimeMinute,
-            sleepTime: editSleepTime,
-        });
-
-        setEditSleepTime("");
-
-        navigate("/home");
-    };
-
-
-    */
+    /*
+      const [sleepTime, setSleepTime] = useState("");
+      const [editSleepTime, setEditSleepTime] = useState("");
+      const [wakeTime, setWakeTime] = useState("");
+      const [sleepInfo, setSleepInfo] = useState(null);
+      const [sleepInfoInit, setSleepInfoInit] = useState(false);
+      const [editWakeTimeHour, setEditWakeTimeHour] = useState("");
+      const [editWakeTimeMinute, setEditWakeTimeMinute] = useState("");
+      const [sleepStartTime, setSleepStartTime] = useState("");
+  
+      const navigate = useNavigate();
+  
+      useEffect(() => {
+          if (userObj) {
+              dbService.collection("수면정보").onSnapshot((snapshot) => {
+                  const sleepInfoArray = snapshot.docs.map((doc) => ({
+                      id: doc.id,
+                      ...doc.data(),
+                  }));
+  
+                  const mySleepInfo = sleepInfoArray.find(
+                      (e) => e.user === userObj.uid
+                  );
+                  setSleepInfo(mySleepInfo);
+                  setSleepTime(mySleepInfo.sleepTime);
+                  setWakeTime(mySleepInfo.wakeTime);
+                  const wTime = mySleepInfo.wakeTime.split(":");
+                  console.log(wTime[1]);
+                  setEditWakeTimeHour(wTime[0]);
+                  setEditWakeTimeMinute(wTime[1]);
+              });
+              setSleepInfoInit(true);
+          }
+      }, [userObj]);
+  
+      useEffect(() => {
+          let hr = wakeTime.split(":")[0] - sleepTime;
+          if (hr < 0) {
+              hr = hr + 24;
+          }
+          console.log("취침시각", hr);
+          console.log(typeof hr);
+  
+          if (hr < 10) {
+              hr = "0" + hr;
+          }
+          console.log(hr);
+          setSleepStartTime(hr + ":" + wakeTime.split(":")[1]);
+      }, [wakeTime, sleepTime]);
+  
+      const onChange = (event) => {
+          const {
+              target: { name, value },
+          } = event;
+          if (name === "editWakeTimeHour") {
+              setEditWakeTimeHour(value);
+          } else if (name === "editWakeTimeMinute") {
+              setEditWakeTimeMinute(value);
+          } else if (name === "editSleepTime") {
+              setEditSleepTime(value);
+          }
+      };
+  
+      const onSubmit = async (e) => {
+          e.preventDefault();
+          console.log(sleepInfo);
+          // console.log(wakeTimeHour, wakeTimeMinute, sleepTime);
+          await dbService.doc(`수면정보/${sleepInfo.id}`).update({
+              wakeTime: editWakeTimeHour + ":" + editWakeTimeMinute,
+              sleepTime: editSleepTime,
+          });
+  
+          setEditSleepTime("");
+  
+          navigate("/home");
+      };
+  
+  
+      */
 
     const [whenToWake, setWhenToWake] = useState(600);
-    const [sleepingTime, setSleepingTime ] = useState(800);
-    const [whenToSleep, setWhenToSleep ] = useState(0);
+    const [sleepingTime, setSleepingTime] = useState(800);
+    const [whenToSleep, setWhenToSleep] = useState(0);
 
     const [startDeg, setStartDeg] = useState(0);
     const [endDeg, setEndDeg] = useState(50);
 
-    useEffect( () => {
-      setWhenToSleep( () => {
-        const sub = whenToWake - sleepingTime;
-        if ( sub < 0 )
-          return 2400 + sub;
-        else
-          return sub;
-      })
+    useEffect(() => {
+        setWhenToSleep(() => {
+            const sub = whenToWake - sleepingTime;
+            if (sub < 0) return 2400 + sub;
+            else return sub;
+        });
     }, [whenToWake, sleepingTime]);
 
-    useEffect( () => {
-      setStartDeg( () => {
-        if (whenToSleep > 1200 ) {
-          //왼쪽으로 가야 한다
-          return (whenToSleep - 2400) / 100 * (360 / 24);
-        } else {
-          return whenToSleep / 100 * ( 360 / 24 );
-        }
-      })
-      setEndDeg( whenToWake / 100 * (360 / 24 ) );
-
-    }, [whenToSleep, whenToWake])
+    useEffect(() => {
+        setStartDeg(() => {
+            if (whenToSleep > 1200) {
+                //왼쪽으로 가야 한다
+                return ((whenToSleep - 2400) / 100) * (360 / 24);
+            } else {
+                return (whenToSleep / 100) * (360 / 24);
+            }
+        });
+        setEndDeg((whenToWake / 100) * (360 / 24));
+    }, [whenToSleep, whenToWake]);
 
     return (
         <Page>
-          <Box>
+            <Box>
+                {isLoggedIn ? (
+                    <Text style={{ fontSize: "24px" }}>
+                        {userObj.displayName} 님, 잘 잡시다.
+                    </Text>
+                ) : (
+                    <div>
+                        <Text>지금 로그인되지 않았어요</Text>
+                        <Link to="/signup">
+                            <Button>회원가입</Button>
+                        </Link>
+                        <Link to="/login">
+                            <Button>로그인</Button>
+                        </Link>
+                    </div>
+                )}
 
-            {isLoggedIn ? (
-                <Text style={{fontSize: "24px"}}>
-                    {userObj.displayName} 님, 잘 잡시다.
-                </Text>
-            ) : (
-                <div>
-                    <Text>지금 로그인되지 않았어요</Text>
-                    <Link to="/signup"><Button>회원가입</Button></Link>
-                    <Link to="/login"><Button>로그인</Button></Link>
-                </div>
-            )}
-
-            <div style={{ width: "90%", marginTop: "30px" }}>
-              <CircularGraph start={startDeg} end={endDeg} />
-            </div>
-
-            <BottomBox>
-              <div>
-                <span>취침 시각</span>
-                <span className="time">{Math.floor(whenToSleep / 100).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
-                {whenToSleep % 100 === 50 ? 30 : "00"}</span>
-              </div>
-              <div>
-                <div>
-                  <span>수면 시간</span>
-                  <div>
-                    <div onClick={ () => setSleepingTime( (prev) => prev += 50) }>+</div>
-                    <span className="time">{Math.floor(sleepingTime/100).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
-                    {sleepingTime%100 === 50 ? 30 : "00"}</span>
-                    <div onClick={ () => setSleepingTime( (prev) => prev -= 50) }>-</div>
-                  </div>
-                </div>
-                <div>
-                  <span>기상 시각</span>
-                  <div>
-                    <div onClick={ () => setWhenToWake( (prev) => prev += 50) }>+</div>
-                    <span className="time">{Math.floor(whenToWake/100).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}:
-                    {whenToWake%100 === 50 ? 30 : "00"}</span>
-                    <div onClick={ () => setWhenToWake( (prev) => prev -= 50) }>-</div>
-                  </div>
+                <div style={{ width: "90%", marginTop: "30px" }}>
+                    <CircularGraph start={startDeg} end={endDeg} />
                 </div>
 
-              </div>
-            </BottomBox>
-{/*}
+                <BottomBox>
+                    <div>
+                        <span>취침 시각</span>
+                        <span className="time">
+                            {Math.floor(whenToSleep / 100).toLocaleString(
+                                "en-US",
+                                { minimumIntegerDigits: 2, useGrouping: false }
+                            )}
+                            :{whenToSleep % 100 === 50 ? 30 : "00"}
+                        </span>
+                    </div>
+                    <div>
+                        <div>
+                            <span>수면 시간</span>
+                            <div>
+                                <div
+                                    onClick={() =>
+                                        setSleepingTime((prev) => (prev += 50))
+                                    }
+                                >
+                                    +
+                                </div>
+                                <span className="time">
+                                    {Math.floor(
+                                        sleepingTime / 100
+                                    ).toLocaleString("en-US", {
+                                        minimumIntegerDigits: 2,
+                                        useGrouping: false,
+                                    })}
+                                    :{sleepingTime % 100 === 50 ? 30 : "00"}
+                                </span>
+                                <div
+                                    onClick={() =>
+                                        setSleepingTime((prev) => (prev -= 50))
+                                    }
+                                >
+                                    -
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span>기상 시각</span>
+                            <div>
+                                <div
+                                    onClick={() =>
+                                        setWhenToWake((prev) => (prev += 50))
+                                    }
+                                >
+                                    +
+                                </div>
+                                <span className="time">
+                                    {Math.floor(
+                                        whenToWake / 100
+                                    ).toLocaleString("en-US", {
+                                        minimumIntegerDigits: 2,
+                                        useGrouping: false,
+                                    })}
+                                    :{whenToWake % 100 === 50 ? 30 : "00"}
+                                </span>
+                                <div
+                                    onClick={() =>
+                                        setWhenToWake((prev) => (prev -= 50))
+                                    }
+                                >
+                                    -
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </BottomBox>
+                {/*}
             <BottomSection>
                 <Bt>
                     <Text style={{fontSize: "11px", lineHeight: "16px"}}>{}-분 안에 자면 <br/>{}-시간 수면 목표 달성</Text>
@@ -179,14 +220,6 @@ const Home = ({ isLoggedIn, userObj }) => {
 
             {sleepInfoInit ? (
                 <div>
-                  <button
-                onClick={() => {
-                    authService.signOut();
-                    navigate("/first");
-                }}
-            >
-                로그아웃
-            </button>
                     <div>내일 기상시간 :{wakeTime}</div>
                     <div>수면시간 : {sleepTime}</div>
                     {sleepStartTime ? (
@@ -268,72 +301,70 @@ const Home = ({ isLoggedIn, userObj }) => {
             </BottomSection>
 
                     */}
-          </Box>
-          <NavBar index={1} />
+            </Box>
+            <NavBar index={1} />
         </Page>
     );
 };
 
 export default Home;
-
 const Box = styled.div`
     display: absolute;
-    background: linear-gradient(#232226, #3C4659, #898AA5);  
+    background: linear-gradient(#232226, #3c4659, #898aa5);
     height: 592px;
     width: 100%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 `;
 
-const BottomBox =  styled.div`
-  display: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  border-top: rgb(100, 100, 100) solid 1px;
-  background-color: #8A8BA633;
-  
-    font-family: 'NEXON Lv1 Gothic OTF';
-    color: white;
-  .time {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: -0.5px;
-  }
-  > div {
+const BottomBox = styled.div`
+    display: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 60px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    &:first-of-type {
-      gap: 50px;
+    flex-direction: column;
+    border-top: rgb(100, 100, 100) solid 1px;
+    background-color: #8a8ba633;
+
+    font-family: "NEXON Lv1 Gothic OTF";
+    color: white;
+    .time {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        letter-spacing: -0.5px;
     }
-  }
-  > div:last-of-type {
     > div {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      > div {
+        width: 100%;
+        height: 60px;
         display: flex;
-        flex-direction: column;
-        align-content: center;
-        > div {
-          cursor: pointer;
-          text-align: center;
+        justify-content: center;
+        align-items: center;
+        &:first-of-type {
+            gap: 50px;
         }
-      }
     }
-  }
+    > div:last-of-type {
+        > div {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            > div {
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                > div {
+                    cursor: pointer;
+                    text-align: center;
+                }
+            }
+        }
+    }
 `;
 
 const BottomSection = styled.div`
@@ -343,7 +374,7 @@ const BottomSection = styled.div`
     justify-content: space-between;
 `;
 
-const Bt= styled.div`
+const Bt = styled.div`
     width: 50%;
     display: flex;
     flex-direction: column;
