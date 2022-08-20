@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
 import Page from "../components/Page";
 import NavBar from "components/NavBar";
+import CircularGraph from "components/CircularGraph";
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
@@ -25,6 +26,17 @@ const Home = ({ isLoggedIn, userObj }) => {
         });
         setSleepInfoInit(true);
     }, []);
+
+    return (
+      <Page>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "50px", padding: "0 16px"}}>
+        <CircularGraph start={-20} end={50} shake={true} />
+        </div>
+
+<NavBar index={1} />
+      </Page>
+
+    )
 
     return (
         <Page>
