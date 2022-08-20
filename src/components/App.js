@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AppRouter from "./Router";
 import { authService } from "fbase";
-import Page from "../components/Page";
+import reset from "styled-reset";
+import { createGlobalStyle } from "styled-components";
 
 function App() {
     const [init, setInit] = useState(false);
@@ -20,6 +21,7 @@ function App() {
 
     return (
         <>
+            <GlobalStyle />
             {init ? (
                 <AppRouter
                     isLoggedIn={Boolean(userObj)}
@@ -32,5 +34,12 @@ function App() {
         </>
     );
 }
+
+const GlobalStyle = createGlobalStyle`
+  ${reset};
+  > a {
+    text-decoration: none;
+  }
+`
 
 export default App;
