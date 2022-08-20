@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { dbService, storageService } from "fbase";
+import { authService, dbService, storageService } from "fbase";
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
     const [wakeTime, setWakeTime] = useState("");
     const [sleepInfoInit, setSleepInfoInit] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dbService.collection("수면정보").onSnapshot((snapshot) => {
@@ -44,6 +45,14 @@ const Home = ({ isLoggedIn, userObj }) => {
                     <div>수면시간 : {sleepTime}</div>
                 </div>
             ) : null}
+            <button
+                onClick={() => {
+                    authService.signOut();
+                    navigate("/");
+                }}
+            >
+                로그아웃
+            </button>
         </>
     );
 };
