@@ -10,10 +10,11 @@ const Home = ({ isLoggedIn, userObj }) => {
     const [wakeTime, setWakeTime] = useState("");
     const [sleepInfo, setSleepInfo] = useState(null);
     const [sleepInfoInit, setSleepInfoInit] = useState(false);
-    const navigate = useNavigate();
-    const [wakeTimeHour, setWakeTimeHour] = useState("");
-    const [wakeTimeMinute, setWakeTimeMinute] = useState("");
+    const [editWakeTimeHour, setEditWakeTimeHour] = useState("");
+    const [editWakeTimeMinute, setEditWakeTimeMinute] = useState("");
     const [sleepStartTime, setSleepStartTime] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (userObj) {
@@ -31,15 +32,15 @@ const Home = ({ isLoggedIn, userObj }) => {
                 setWakeTime(mySleepInfo.wakeTime);
                 const wTime = mySleepInfo.wakeTime.split(":");
                 console.log(wTime[1]);
-                setWakeTimeHour(wTime[0]);
-                setWakeTimeMinute(wTime[1]);
+                setEditWakeTimeHour(wTime[0]);
+                setEditWakeTimeMinute(wTime[1]);
             });
             setSleepInfoInit(true);
         }
     }, [userObj]);
 
     useEffect(() => {
-        let hr = wakeTimeHour - sleepTime;
+        let hr = wakeTime.split(":")[0] - sleepTime;
         if (hr < 0) {
             hr = hr + 24;
         }
@@ -50,17 +51,17 @@ const Home = ({ isLoggedIn, userObj }) => {
             hr = "0" + hr;
         }
         console.log(hr);
-        setSleepStartTime(hr + ":" + wakeTimeMinute);
-    }, [wakeTimeHour, wakeTimeMinute, sleepTime]);
+        setSleepStartTime(hr + ":" + wakeTime.split(":")[1]);
+    }, [wakeTime, sleepTime]);
 
     const onChange = (event) => {
         const {
             target: { name, value },
         } = event;
-        if (name === "wakeTimeHour") {
-            setWakeTimeHour(value);
-        } else if (name === "wakeTimeMinute") {
-            setWakeTimeMinute(value);
+        if (name === "editWakeTimeHour") {
+            setEditWakeTimeHour(value);
+        } else if (name === "editWakeTimeMinute") {
+            setEditWakeTimeMinute(value);
         } else if (name === "editSleepTime") {
             setEditSleepTime(value);
         }
@@ -69,14 +70,12 @@ const Home = ({ isLoggedIn, userObj }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log(sleepInfo);
-        console.log(wakeTimeHour, wakeTimeMinute, sleepTime);
+        // console.log(wakeTimeHour, wakeTimeMinute, sleepTime);
         await dbService.doc(`수면정보/${sleepInfo.id}`).update({
-            wakeTime: wakeTimeHour + ":" + wakeTimeMinute,
+            wakeTime: editWakeTimeHour + ":" + editWakeTimeMinute,
             sleepTime: editSleepTime,
         });
 
-        // setWakeTimeHour("");
-        // setWakeTimeMinute("");
         setEditSleepTime("");
 
         navigate("/home");
@@ -108,8 +107,8 @@ const Home = ({ isLoggedIn, userObj }) => {
                     <div>내일 기상 시간 수정하기</div>
                     <form onSubmit={onSubmit}>
                         <select
-                            value={wakeTimeHour}
-                            name="wakeTimeHour"
+                            value={editWakeTimeHour}
+                            name="editWakeTimeHour"
                             onChange={onChange}
                             required
                         >
@@ -140,8 +139,8 @@ const Home = ({ isLoggedIn, userObj }) => {
                             <option value="23">23</option>
                         </select>
                         <select
-                            value={wakeTimeMinute}
-                            name="wakeTimeMinute"
+                            value={editWakeTimeMinute}
+                            name="editWakeTimeMinute"
                             onChange={onChange}
                             required
                         >
