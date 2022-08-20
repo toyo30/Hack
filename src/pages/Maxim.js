@@ -3,8 +3,49 @@ import Page from "../components/Page";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
+import Notification from "../Notification";
+import { requestForToken } from "../fbase";
+import { url, config } from "../SendMessage";
+
+const axios = require("axios");
 
 const Maxim = ({ isLoggedIn, userObj }) => {
+    // push 부분
+
+    const [currentDeviceToken, setCurrentDeviceToken] = useState();
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        requestForToken().then((result) => setCurrentDeviceToken(result));
+    }, []);
+
+    const target_data = {
+        to: `${currentDeviceToken}`,
+        notification: {
+            title: "버튼 클릭 ",
+            body: `클릭횟수 ${count}`,
+        },
+    };
+
+    const sendMessage = () => {
+        axios
+            .post(url, target_data, config)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         sendMessage();
+    //     }, 5000);
+    // }, [currentDeviceToken]);
+
+    //push 부분 끝
+
     const [sleepTime, setSleepTime] = useState("");
     const [editSleepTime, setEditSleepTime] = useState("");
     const [wakeTime, setWakeTime] = useState("");
@@ -16,7 +57,8 @@ const Maxim = ({ isLoggedIn, userObj }) => {
     const [sleepStartTimeInit, setSleepStartTimeInit] = useState(false);
 
     const customTime = useCustomTime();
-    console.log(customTime);
+    // console.log(customTime);
+
     const maximList = [
         "잠을 자고 나면 미덕이 생기를 찾아 일어날 것이다. - 프레드리히 니체",
         "우리는 꿈들이 만들어지는 것과 같은 존재이며, 우리의 짧은 삶은 잠에 둘러싸여 있다. -윌리엄 셰익스피어",
@@ -70,17 +112,38 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         setSleepStartTimeInit(true);
     }, [wakeTime, sleepTime]);
 
+    //메세지 보내는 부분
+
+    useEffect(() => {
+        // console.log(sleepStartTime.split(":")[0]);
+        // console.log(sleepStartTime.split(":")[1]);
+        if (
+            sleepStartTime.split(":")[0] == customTime.hour &&
+            sleepStartTime.split(":")[1] == customTime.minute
+        ) {
+            console.log("됐다!!");
+            sendMessage();
+        }
+    }, [customTime.second]);
+
     return (
         <>
             <Page>
                 {setSleepStartTimeInit ? (
                     <div>
                         <div>
-                            현재시간 {customTime.hour + ":" + customTime.minute}
+                            현재시간{" "}
+                            {customTime.hour +
+                                ":" +
+                                customTime.minute +
+                                ":" +
+                                customTime.second}
                         </div>
                         <div>자야 하는 시간 {sleepStartTime}</div>
                     </div>
                 ) : null}
+                <button>버튼</button>
+                {/* <Notification /> */}
             </Page>
         </>
     );
