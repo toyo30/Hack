@@ -13,6 +13,7 @@ import CircularGraph from "components/CircularGraph";
 
 
 const Home = ({ isLoggedIn, userObj }) => {
+  /*
     const [sleepTime, setSleepTime] = useState("");
     const [editSleepTime, setEditSleepTime] = useState("");
     const [wakeTime, setWakeTime] = useState("");
@@ -89,44 +90,82 @@ const Home = ({ isLoggedIn, userObj }) => {
         navigate("/home");
     };
 
-    return (
-      <Page>
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "50px", padding: "0 16px"}}>
-        <CircularGraph start={-20} end={50} shake={true} />
-        </div>
 
-<NavBar index={1} />
-      </Page>
+    */
 
-    )
+    const [whenToWake, setWhenToWake] = useState(600);
+    const [sleepingTime, setSleepingTime ] = useState(800);
+    const [whenToSleep, setWhenToSleep ] = useState(0);
+
+    const [startDeg, setStartDeg] = useState(0);
+    const [endDeg, setEndDeg] = useState(50);
+
+    useEffect( () => {
+      setWhenToSleep( () => {
+        const sub = whenToWake - sleepingTime;
+        if ( sub < 0 )
+          return 2400 + sub;
+        else
+          return sub;
+      })
+    }, [whenToWake, sleepingTime]);
+
+    useEffect( () => {
+      setStartDeg( () => {
+        if (whenToSleep > 1200 ) {
+          //왼쪽으로 가야 한다
+          return (whenToSleep - 2400) / 100 * (360 / 24);
+        } else {
+          return whenToSleep / 100 * ( 360 / 24 );
+        }
+      })
+      setEndDeg( whenToWake / 100 * (360 / 24 ) );
+
+    }, [whenToSleep, whenToWake])
 
     return (
         <Page>
           <Box>
-            {isLoggedIn ? (
-                <Text style={{fontSize: "24px"}}>
-                    {userObj.displayName} 님, 잘 잡시다.
-                </Text>
-            ) : (
-                <div>
-                    <Text>홈화면입니다. 지금 로그인되지 않았어요</Text>
-                    <Link to="/signup"><Button>회원가입</Button></Link>
-                    <Link to="/login"><Button>로그인</Button></Link>
-                </div>
-            )}
 
+            <div style={{ width: "90%", marginTop: "30px" }}>
+              <CircularGraph start={startDeg} end={endDeg} />
+            </div>
+
+            <BottomBox>
+              <div>
+                <span>취침 시각</span>
+                <span className="time">{Math.floor(whenToSleep / 100).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
+                {whenToSleep % 100 === 50 ? 30 : "00"}</span>
+              </div>
+              <div>
+                <div>
+                  <span>수면 시간</span>
+                  <div>
+                    <div onClick={ () => setSleepingTime( (prev) => prev += 50) }>+</div>
+                    <span className="time">{Math.floor(sleepingTime/100).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
+                    {sleepingTime%100 === 50 ? 30 : "00"}</span>
+                    <div onClick={ () => setSleepingTime( (prev) => prev -= 50) }>-</div>
+                  </div>
+                </div>
+                <div>
+                  <span>기상 시각</span>
+                  <div>
+                    <div onClick={ () => setWhenToWake( (prev) => prev += 50) }>+</div>
+                    <span className="time">{Math.floor(whenToWake/100).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}:
+                    {whenToWake%100 === 50 ? 30 : "00"}</span>
+                    <div onClick={ () => setWhenToWake( (prev) => prev -= 50) }>-</div>
+                  </div>
+                </div>
+
+              </div>
+            </BottomBox>
+{/*}
             <BottomSection>
                 <Bt>
                     <Text style={{fontSize: "11px", lineHeight: "16px"}}>{}-분 안에 자면 <br/>{}-시간 수면 목표 달성</Text>
                     <Text style={{fontSize: "11px", lineHeight: "16px"}}>명언</Text>
                 </Bt>
 
-                {/* {sleepInfoInit ? (
-                <Bt>
-                    <Text>기상 : {wakeTime}</Text>
-                    <Text>수면 : {sleepTime}</Text>
-                </Bt>
-                ) : null} */}
             {sleepInfoInit ? (
                 <div>
                     <div>내일 기상시간 :{wakeTime}</div>
@@ -134,7 +173,6 @@ const Home = ({ isLoggedIn, userObj }) => {
                     {sleepStartTime ? (
                         <div>오늘 {sleepStartTime}에 잠들어야해요!</div>
                     ) : null}
-                    <div>여기에 시계 컴포넌트가 들어갑니다!</div>
                     <div>내일 기상 시간 수정하기</div>
                     <form onSubmit={onSubmit}>
                         <select
@@ -210,14 +248,7 @@ const Home = ({ isLoggedIn, userObj }) => {
             ) : null}
             </BottomSection>
 
-            {/* <button
-                onClick={() => {
-                    authService.signOut();
-                    navigate("/first");
-                }}
-            >
-                로그아웃
-            </button> */}
+                    */}
           </Box>
           <NavBar index={1} />
         </Page>
@@ -236,6 +267,54 @@ const Box = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+`;
+
+const BottomBox =  styled.div`
+  display: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-top: rgb(100, 100, 100) solid 1px;
+  background-color: #8A8BA633;
+  
+    font-family: 'NEXON Lv1 Gothic OTF';
+    color: white;
+  .time {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+  }
+  > div {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:first-of-type {
+      gap: 50px;
+    }
+  }
+  > div:last-of-type {
+    > div {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      > div {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        > div {
+          cursor: pointer;
+          text-align: center;
+        }
+      }
+    }
+  }
 `;
 
 const BottomSection = styled.div`
