@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
 import Page from "../components/Page";
+import NavBar from "components/NavBar";
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
@@ -54,8 +55,7 @@ const Home = ({ isLoggedIn, userObj }) => {
             >
                 로그아웃
             </button>
-            <Link to="/mypage">마이페이지로 이동하기</Link>
-            <Link to="/messages">나의 메세지로 이동하기</Link>
+            <NavBar index={1} />
         </Page>
     );
 };

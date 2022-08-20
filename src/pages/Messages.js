@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
 import Page from "../components/Page";
+import NavBar from "components/NavBar";
 
 const Messages = ({ isLoggedIn, userObj }) => {
     const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Messages = ({ isLoggedIn, userObj }) => {
                 로그아웃
             </button>
             {/* <Link to="/mypage">마이페이지로 이동하기</Link> */}
-            <Link to="/home">홈화면으로 이동하기</Link>
+            <NavBar index={0} />
         </Page>
     );
 };
