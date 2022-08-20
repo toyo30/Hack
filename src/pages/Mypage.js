@@ -42,7 +42,6 @@ const Home = ({ isLoggedIn, userObj }) => {
           <div>수면시간 : {sleepTime}</div>
         </div>
       ) : null}
-      <Button/>
       <Chart/>
     </Page>
   );
