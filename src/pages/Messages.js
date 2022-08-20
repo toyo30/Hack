@@ -4,6 +4,7 @@ import { authService, dbService, storageService } from "fbase";
 import Page from "../components/Page";
 import NavBar from "components/NavBar";
 import MessageBox from "../components/MessageBox";
+import MessageGroup from '../components/MessageGroup';
 
 const Messages = ({ isLoggedIn, userObj }) => {
     const navigate = useNavigate();
@@ -31,7 +32,6 @@ const Messages = ({ isLoggedIn, userObj }) => {
         <Page>
             {isLoggedIn && sleepInfoInit ? (
                 <>
-                
                     <div>
                         {userObj.displayName} 님 메시지화면입니다. 지금 로그인된
                         상태에요
@@ -43,7 +43,20 @@ const Messages = ({ isLoggedIn, userObj }) => {
                         <div>야 짤리고 싶냐??</div>
                         <div>일어날래?</div>
                     </div>
-                    <MessageBox/>
+                    <MessageGroup>
+                        <MessageBox/><MessageBox/>
+                        <MessageBox/><MessageBox/>
+                    </MessageGroup>
+                    <MessageGroup>
+                         <MessageBox type="day"/><MessageBox type="day"/>
+                         <MessageBox type="day"/><MessageBox type="day"/>
+                    </MessageGroup>
+                      
+                     
+                    
+                  
+                   
+                    
                 </>
             ) : (
                 <div>
