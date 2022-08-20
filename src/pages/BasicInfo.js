@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { authService, dbService } from "fbase";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import styled, {css} from 'styled-components';
+import Link from "../components/Link";
 import Page from "../components/Page";
+import Text from "../components/Text";
+import Button from "../components/Button";
+import Logo from "../components/Logo";
 
 const BasicInfo = ({ isLoggedIn, userObj }) => {
     const navigate = useNavigate();
@@ -43,41 +48,43 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
     };
     return (
         <Page>
-            <div>
+            <Box>
                 {isLoggedIn ? (
-                    <span>
-                        회원가입이 완료되었어요. 수면정보를 입력해주세요!
-                    </span>
+                    <Text style={{fontSize: "30px", lineHeight: "50px", fontWeight: "700"}}>
+                        기본 정보를 입력해주세요
+                    </Text>
                 ) : (
-                    <span>로그인이 안되어있는데요? </span>
+                  <Text style={{fontSize: "30px", lineHeight: "50px", fontWeight: "700"}}>로그인이 안되어있는데요? </Text>
                 )}
                 <form onSubmit={onSubmit}>
-                    <input
-                        name="sleepTime"
-                        type="text"
-                        placeholder="오늘 ? 시에 잘 거에요."
-                        required
-                        value={sleepTime}
-                        onChange={onChange}
-                    />
-                    <input
-                        name="wakeTime"
-                        type="text"
-                        placeholder="내일 ? 시에 일어날래요."
-                        required
-                        value={wakeTime}
-                        onChange={onChange}
-                    />
-                    <input
-                        name="message"
-                        type="text"
-                        placeholder="오늘 밤에 받을 메세지에요."
-                        required
-                        value={message}
-                        onChange={onChange}
-                    />
+                    <FormSection>
+                        <InputField
+                            name="sleepTime"
+                            type="text"
+                            placeholder="오늘 ? 시에 잘 거에요."
+                            required
+                            value={sleepTime}
+                            onChange={onChange}
+                        />
+                        <InputField
+                            name="wakeTime"
+                            type="text"
+                            placeholder="내일 ? 시에 일어날래요."
+                            required
+                            value={wakeTime}
+                            onChange={onChange}
+                        />
+                        <InputField
+                            name="message"
+                            type="text"
+                            placeholder="오늘 밤에 받을 메세지에요."
+                            required
+                            value={message}
+                            onChange={onChange}
+                        />
 
-                    <input type="submit" value="정보 입력" />
+                        <InputField type="submit" value="시작하기"/>
+                    </FormSection>
                 </form>
                 {error === "" ? null : (
                     <div
@@ -91,12 +98,69 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                         {error}
                     </div>
                 )}
-                <Link to="/signup">회원가입 화면으로 이동하기</Link>
+                {/* <Link to="/signup">회원가입 화면으로 이동하기</Link>
                 <Link to="/login">로그인 화면으로 이동하기</Link>
-                <Link to="/home">홈화면으로 이동하기</Link>
-            </div>
+                <Link to="/home">홈화면으로 이동하기</Link> */}
+            </Box>
         </Page>
     );
 };
 
 export default BasicInfo;
+
+const Box = styled.body`
+    background: linear-gradient(#232226, #3C4659, #898AA5);  
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+`;
+
+const FormSection = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+
+const InputField=styled.input`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent !important;
+
+    border: 0;
+    outline: 0;
+    margin: 9px;
+    border-radius: 0;
+    padding: 0px 15px ;
+
+    user-select: none;
+    vertical-align: middle;
+    moz-appearance: none; 
+    /*Reset*/
+    -webkit-appearance: none; // Reset
+    text-decoration: none,
+    color: inherit;
+    '&::-moz-focus-inner': {
+    border-style: none; // Remove Firefox dotted outline.
+    };
+
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+
+    color: #F2F4F6;
+
+    background: rgba(242, 244, 246, 0.2);
+    border-radius: 14px;
+
+    width: 261px;
+    height: 47px;
+`;

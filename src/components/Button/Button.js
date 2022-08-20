@@ -33,4 +33,20 @@ const ButtonRoot = styled.div`
     '&::-moz-focus-inner': {
     border-style: none; // Remove Firefox dotted outline.
     };
+
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 72px;
+    letter-spacing: -0.5px;
+
+    color: #F2F4F6;
+
+    background: rgba(242, 244, 246, 0.2);
+    border-radius: 14px;
+
+    width: 261px;
+    height: 47px;
+
 `;
