@@ -2,36 +2,40 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
 import Page from "../components/Page";
+import NavBar from "components/NavBar";
 
 const Messages = ({ isLoggedIn, userObj }) => {
-    // const [sleepTime, setSleepTime] = useState("");
-    // const [wakeTime, setWakeTime] = useState("");
-    // const [sleepInfoInit, setSleepInfoInit] = useState(false);
     const navigate = useNavigate();
+    const [message, setMessage] = useState("");
+    const [sleepInfoInit, setSleepInfoInit] = useState(false);
 
-    // useEffect(() => {
-    //     dbService.collection("수면정보").onSnapshot((snapshot) => {
-    //         const sleepInfoArray = snapshot.docs.map((doc) => ({
-    //             ...doc.data(),
-    //         }));
+    useEffect(() => {
+        if (userObj) {
+            dbService.collection("수면정보").onSnapshot((snapshot) => {
+                const sleepInfoArray = snapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                }));
 
-    //         const mySleepInfo = sleepInfoArray.find(
-    //             (e) => e.user === userObj.uid
-    //         );
-    //         console.log(mySleepInfo);
-    //         setSleepTime(mySleepInfo.wakeTime);
-    //         setWakeTime(mySleepInfo.sleepTime);
-    //     });
-    //     setSleepInfoInit(true);
-    // }, []);
+                const mySleepInfo = sleepInfoArray.find(
+                    (e) => e.user === userObj.uid
+                );
+                console.log(mySleepInfo);
+                setMessage(mySleepInfo.message);
+            });
+            setSleepInfoInit(true);
+        }
+    }, [userObj]);
 
     return (
         <Page>
-            {isLoggedIn ? (
-                <div>
-                    {userObj.displayName} 님 메시지화면입니다. 지금 로그인된
-                    상태에요
-                </div>
+            {isLoggedIn && sleepInfoInit ? (
+                <>
+                    <div>
+                        {userObj.displayName} 님 메시지화면입니다. 지금 로그인된
+                        상태에요
+                    </div>
+                    <div>오늘 밤에 받을 메세지에요. {message} </div>
+                </>
             ) : (
                 <div>
                     홈화면입니다. 지금 로그인되지 않았어요
@@ -55,7 +59,7 @@ const Messages = ({ isLoggedIn, userObj }) => {
                 로그아웃
             </button>
             {/* <Link to="/mypage">마이페이지로 이동하기</Link> */}
-            <Link to="/home">홈화면으로 이동하기</Link>
+            <NavBar index={0} />
         </Page>
     );
 };

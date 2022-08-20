@@ -24,13 +24,8 @@ ChartJS.register(
 export const options = {
   responsive: true,
   plugins: {
-    legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
+    legend: false,
+    title: false,
   },
 };
 
@@ -40,8 +35,8 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
+      label: '수면시간',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
   ],

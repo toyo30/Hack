@@ -31,6 +31,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                     user: userObj.uid,
                     sleepTime,
                     wakeTime,
+                    message,
                 });
                 navigate("/home");
             } catch (error) {
