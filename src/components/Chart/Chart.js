@@ -34,20 +34,15 @@ export const options = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['월', '화', '수', '목', '금', '토', '일'];
 
 export const data = {
   labels,
   datasets: [
     {
       label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
   ],
 };
@@ -56,7 +51,7 @@ export const data = {
 function Chart() {
     return (
         <>
-            <ChartBox>안녕하세요 차트입니다 
+            <ChartBox>
                 <Bar options={options} data={data} />
             </ChartBox>
             
@@ -67,6 +62,6 @@ function Chart() {
 export default Chart;
 
 const ChartBox = styled.div`
-  background: yellow;
-  width: 360px;
+
+  
 `;

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { dbService, storageService } from "fbase";
 import Button from '../components/Button';
 import Chart from '../components/Chart';
+import Page from "../components/Page";
 
 const Home = ({ isLoggedIn, userObj }) => {
   const [sleepTime, setSleepTime] = useState("");
@@ -24,7 +25,7 @@ const Home = ({ isLoggedIn, userObj }) => {
   }, []);
 
   return (
-    <>
+    <Page>
       {isLoggedIn ? (
         <div>{userObj.displayName} 님 홈화면입니다. 지금 로그인된 상태에요</div>
       ) : (
@@ -43,7 +44,7 @@ const Home = ({ isLoggedIn, userObj }) => {
       ) : null}
       <Button/>
       <Chart/>
-    </>
+    </Page>
   );
 };
 
