@@ -24,12 +24,11 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
     };
     const onSubmit = async (event) => {
         event.preventDefault();
-
         if (userObj) {
             try {
                 const res = await dbService.collection("수면정보").add({
-                    name,
-                    user: res.user.uid,
+                    name: userObj.displayName,
+                    user: userObj.uid,
                     sleepTime,
                     wakeTime,
                 });
@@ -45,53 +44,39 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
         <Page>
             <div>
                 {isLoggedIn ? (
-                    <span>이미 가입된 회원이에요</span>
+                    <span>
+                        회원가입이 완료되었어요. 수면정보를 입력해주세요!
+                    </span>
                 ) : (
-                    <span>회원가입페이지입니다!</span>
+                    <span>로그인이 안되어있는데요? </span>
                 )}
                 <form onSubmit={onSubmit}>
                     <input
-                        name="email"
+                        name="sleepTime"
                         type="text"
-                        placeholder="Email"
+                        placeholder="오늘 ? 시에 잘 거에요."
                         required
-                        value={email}
-                        onChange={onChange}
-                    />
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={password}
-                        onChange={onChange}
-                    />
-                    <input
-                        name="name"
-                        type="text"
-                        placeholder="이름"
-                        required
-                        value={name}
+                        value={sleepTime}
                         onChange={onChange}
                     />
                     <input
                         name="wakeTime"
                         type="text"
-                        placeholder="내일 기상시간"
+                        placeholder="내일 ? 시에 일어날래요."
                         required
                         value={wakeTime}
                         onChange={onChange}
                     />
                     <input
-                        name="sleepTime"
+                        name="message"
                         type="text"
-                        placeholder="오늘 잘 시간"
+                        placeholder="오늘 밤에 받을 메세지에요."
                         required
-                        value={sleepTime}
+                        value={message}
                         onChange={onChange}
                     />
 
-                    <input type="submit" value="회원가입" />
+                    <input type="submit" value="정보 입력" />
                 </form>
                 {error === "" ? null : (
                     <div
@@ -113,4 +98,4 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
     );
 };
 
-export default Signup;
+export default BasicInfo;
