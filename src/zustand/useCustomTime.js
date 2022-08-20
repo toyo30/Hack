@@ -1,6 +1,6 @@
 import create from "zustand";
 
-const useStore = create( set => ( {
+const useCustomTime = create( set => ( {
   date: 21,
   month: 8,
   year: 2022,
@@ -43,4 +43,4 @@ const useStore = create( set => ( {
   )
 }));
 
-export default useStore;
+export default useCustomTime;
