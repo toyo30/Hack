@@ -20,12 +20,15 @@ const Login = ({ isLoggedIn }) => {
     };
 
     const onSubmit = async (event) => {
+        console.log(email, password);
+        event.preventDefault();
         try {
             let data;
             data = await authService.signInWithEmailAndPassword(
                 email,
                 password
             );
+            console.log(data);
             navigate("/home");
         } catch (error) {
             setError(error.message);
