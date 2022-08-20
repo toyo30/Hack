@@ -31,23 +31,24 @@ export const options = {
 
 const labels = ['월', '화', '수', '목', '금', '토', '일'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: '수면시간',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
 
 
 function Chart() {
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "수면시간",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+
     return (
         <>
             <ChartBox>
-                <Bar options={options} data={data} />
+                <Bar options={options} data={data} style={{ position: "relative", height: "100%", width:"100%", }}/>
             </ChartBox>
             
         </>
@@ -57,6 +58,5 @@ function Chart() {
 export default Chart;
 
 const ChartBox = styled.div`
-
   
 `;
