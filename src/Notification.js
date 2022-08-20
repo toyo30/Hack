@@ -26,6 +26,7 @@ const Notification = () => {
     if (notification?.title) {
       notify();
     }
+    
     navigator.serviceWorker.ready.then(function (registration) {
       registration.showNotification(`${notification?.title}`, {
         body: `${notification?.body}`,
