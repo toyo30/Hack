@@ -27,30 +27,48 @@ const Home = ({ isLoggedIn, userObj }) => {
     }, []);
 
     return (
-        <Page>
-            {isLoggedIn ? (
-                <div>
-                    {userObj.displayName} 님 홈화면입니다. 지금 로그인된
-                    상태에요
-                </div>
-            ) : (
-                <div>
-                    홈화면입니다. 지금 로그인되지 않았어요
-                    <Link to="/signup">회원가입 화면으로 이동하기</Link>
-                    <Link to="/login">로그인 화면으로 이동하기</Link>
-                    <Link to="/home">홈화면으로 이동하기</Link>
-                </div>
-            )}
-            {sleepInfoInit ? (
-                <div>
-                    <div>내일 기상시간 : {wakeTime}</div>
-                    <div>수면시간 : {sleepTime}</div>
-                </div>
-            ) : null}
-            <Button />
-            <Chart />
+      <Page>
+        {isLoggedIn ? (
+          <></>
+        ) : (
+          <div>
+            홈화면입니다. 지금 로그인되지 않았어요
+            <Link to="/signup">회원가입 화면으로 이동하기</Link>
+            <Link to="/login">로그인 화면으로 이동하기</Link>
             <Link to="/home">홈화면으로 이동하기</Link>
-        </Page>
+          </div>
+        )}
+        {sleepInfoInit ? (
+          <div>
+            <p>7시간 수면,</p>
+            <p>이번주에는 3번 달성했어요</p>
+            <Chart />
+            <div
+              style={{
+                width: "100%",
+                margin: "0 auto",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                style={{
+                  width: "166px",
+                  height: "33px",
+                  background: "rgba(60, 70, 89, 0.23)",
+                  borderRadius: "8px",
+                  color: "rgba(60, 70, 89, 0.87)",
+                  padding: '5px',
+                  boxSizing: 'content-box',
+                }}
+              >
+                내 Sleep History 더보기
+              </Button>
+            </div>
+            <Link to="/home">홈화면으로 이동하기</Link>
+          </div>
+        ) : null}
+      </Page>
     );
 };
 
