@@ -9,6 +9,7 @@ import Text from "../components/Text";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
 import NavBar from "components/NavBar";
+import CircularGraph from "components/CircularGraph";
 
 
 const Home = ({ isLoggedIn, userObj }) => {
@@ -87,6 +88,17 @@ const Home = ({ isLoggedIn, userObj }) => {
 
         navigate("/home");
     };
+
+    return (
+      <Page>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "50px", padding: "0 16px"}}>
+        <CircularGraph start={-20} end={50} shake={true} />
+        </div>
+
+<NavBar index={1} />
+      </Page>
+
+    )
 
     return (
         <Page>

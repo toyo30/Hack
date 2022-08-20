@@ -37,9 +37,6 @@ function App() {
 
 const GlobalStyle = createGlobalStyle`
   ${reset};
-  > a {
-    text-decoration: none;
-  }
 `
 
 export default App;
