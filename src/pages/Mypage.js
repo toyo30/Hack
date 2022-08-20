@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import Chart from "../components/Chart";
 import Page from "../components/Page";
 
-const Home = ({ isLoggedIn, userObj }) => {
+const Mypage = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
     const [wakeTime, setWakeTime] = useState("");
     const [sleepInfoInit, setSleepInfoInit] = useState(false);
@@ -54,4 +54,4 @@ const Home = ({ isLoggedIn, userObj }) => {
     );
 };
 
-export default Home;
+export default Mypage;
