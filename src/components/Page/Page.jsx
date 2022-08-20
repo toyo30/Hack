@@ -18,6 +18,7 @@ const StyledPage = styled.div`
   > div {
     position: relative;
     width: 360px;
+    height: 640px;
     background-color: white;
   }
 `;
