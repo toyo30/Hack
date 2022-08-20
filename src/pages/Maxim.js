@@ -10,55 +10,6 @@ import { url, config } from "../SendMessage";
 const axios = require("axios");
 
 const Maxim = ({ isLoggedIn, userObj }) => {
-    // push 부분
-
-    const [currentDeviceToken, setCurrentDeviceToken] = useState();
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        requestForToken().then((result) => setCurrentDeviceToken(result));
-    }, []);
-
-    const target_data = {
-        to: `${currentDeviceToken}`,
-        notification: {
-            title: "버튼 클릭 ",
-            body: `클릭횟수 ${count}`,
-        },
-    };
-
-    const sendMessage = () => {
-        axios
-            .post(url, target_data, config)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         sendMessage();
-    //     }, 5000);
-    // }, [currentDeviceToken]);
-
-    //push 부분 끝
-
-    const [sleepTime, setSleepTime] = useState("");
-    const [editSleepTime, setEditSleepTime] = useState("");
-    const [wakeTime, setWakeTime] = useState("");
-    const [sleepInfo, setSleepInfo] = useState(null);
-    const [sleepInfoInit, setSleepInfoInit] = useState(false);
-    const [editWakeTimeHour, setEditWakeTimeHour] = useState("");
-    const [editWakeTimeMinute, setEditWakeTimeMinute] = useState("");
-    const [sleepStartTime, setSleepStartTime] = useState("");
-    const [sleepStartTimeInit, setSleepStartTimeInit] = useState(false);
-
-    const customTime = useCustomTime();
-    // console.log(customTime);
-
     const maximList = [
         "잠을 자고 나면 미덕이 생기를 찾아 일어날 것이다. - 프레드리히 니체",
         "우리는 꿈들이 만들어지는 것과 같은 존재이며, 우리의 짧은 삶은 잠에 둘러싸여 있다. -윌리엄 셰익스피어",
@@ -72,6 +23,20 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         "우리는 잘 때 위선에서 벗어날 수 있다. -윌리엄 해즐린",
         "핀란드에서 7월 27일은 ‘잠꾸러기의 날’입니다",
     ];
+
+    const [sleepTime, setSleepTime] = useState("");
+    const [editSleepTime, setEditSleepTime] = useState("");
+    const [wakeTime, setWakeTime] = useState("");
+    const [sleepInfo, setSleepInfo] = useState(null);
+    const [sleepInfoInit, setSleepInfoInit] = useState(false);
+    const [editWakeTimeHour, setEditWakeTimeHour] = useState("");
+    const [editWakeTimeMinute, setEditWakeTimeMinute] = useState("");
+    const [sleepStartTime, setSleepStartTime] = useState("");
+    const [sleepStartTimeInit, setSleepStartTimeInit] = useState(false);
+    const [message, setMessage] = useState("");
+
+    const customTime = useCustomTime();
+    // console.log(customTime);
 
     useEffect(() => {
         if (userObj) {
@@ -87,6 +52,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
                 setSleepInfo(mySleepInfo);
                 setSleepTime(mySleepInfo.sleepTime);
                 setWakeTime(mySleepInfo.wakeTime);
+                setMessage(mySleepInfo.message);
                 const wTime = mySleepInfo.wakeTime.split(":");
                 console.log(wTime[1]);
                 setEditWakeTimeHour(wTime[0]);
@@ -121,10 +87,49 @@ const Maxim = ({ isLoggedIn, userObj }) => {
             sleepStartTime.split(":")[0] == customTime.hour &&
             sleepStartTime.split(":")[1] == customTime.minute
         ) {
-            console.log("됐다!!");
+            // console.log("됐다!!");
             sendMessage();
         }
     }, [customTime.second]);
+
+    // push 부분 시작
+
+    const [currentDeviceToken, setCurrentDeviceToken] = useState();
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        requestForToken().then((result) => setCurrentDeviceToken(result));
+    }, []);
+
+    const target_data = {
+        to: `${currentDeviceToken}`,
+        notification: {
+            title: "내가 오늘 아침에 쓴 메시지",
+            body: `${message}`,
+            click_action: "http:localhost:3000/message",
+        },
+    };
+
+    // body: `${maximList[Math.floor(Math.random() * 12)]}`,
+
+    const sendMessage = () => {
+        axios
+            .post(url, target_data, config)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         sendMessage();
+    //     }, 5000);
+    // }, [currentDeviceToken]);
+
+    //push 부분 끝
 
     return (
         <>
@@ -143,7 +148,13 @@ const Maxim = ({ isLoggedIn, userObj }) => {
                     </div>
                 ) : null}
                 <button>버튼</button>
-                {/* <Notification /> */}
+                <Notification
+                    sleepStartTimeHour={sleepStartTime.split(":")[0]}
+                    sleepStartTimeMinute={sleepStartTime.split(":")[1]}
+                    serverTimeHour={customTime.hour}
+                    serverTimeMinute={customTime.minute}
+                    serverTimeSecond={customTime.second}
+                />
             </Page>
         </>
     );
