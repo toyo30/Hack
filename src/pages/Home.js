@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
+
+import styled, {css} from 'styled-components';
+import Link from "../components/Link";
 import Page from "../components/Page";
+import Text from "../components/Text";
+import Button from "../components/Button";
+import Logo from "../components/Logo";
 import NavBar from "components/NavBar";
+
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
@@ -54,19 +61,31 @@ const Home = ({ isLoggedIn, userObj }) => {
 
     return (
         <Page>
+          <Box>
             {isLoggedIn ? (
-                <div>
-                    {userObj.displayName} 님 홈화면입니다. 지금 로그인된
-                    상태에요
-                </div>
+                <Text style={{fontSize: "24px"}}>
+                    {userObj.displayName} 님, 잘 잡시다.
+                </Text>
             ) : (
                 <div>
-                    홈화면입니다. 지금 로그인되지 않았어요
-                    <Link to="/signup">회원가입 화면으로 이동하기</Link>
-                    <Link to="/login">로그인 화면으로 이동하기</Link>
-                    <Link to="/home">홈화면으로 이동하기</Link>
+                    <Text>홈화면입니다. 지금 로그인되지 않았어요</Text>
+                    <Link to="/signup"><Button>회원가입</Button></Link>
+                    <Link to="/login"><Button>로그인</Button></Link>
                 </div>
             )}
+
+            <BottomSection>
+                <Bt>
+                    <Text style={{fontSize: "11px", lineHeight: "16px"}}>{}-분 안에 자면 <br/>{}-시간 수면 목표 달성</Text>
+                    <Text style={{fontSize: "11px", lineHeight: "16px"}}>명언</Text>
+                </Bt>
+
+                {/* {sleepInfoInit ? (
+                <Bt>
+                    <Text>기상 : {wakeTime}</Text>
+                    <Text>수면 : {sleepTime}</Text>
+                </Bt>
+                ) : null} */}
             {sleepInfoInit ? (
                 <div>
                     <div>내일 기상시간 : {wakeTime}</div>
@@ -144,17 +163,45 @@ const Home = ({ isLoggedIn, userObj }) => {
                     </form>
                 </div>
             ) : null}
-            <button
+            </BottomSection>
+
+            {/* <button
                 onClick={() => {
                     authService.signOut();
-                    navigate("/");
+                    navigate("/first");
                 }}
             >
                 로그아웃
-            </button>
-            <NavBar index={1} />
+            </button> */}
+          </Box>
+          <NavBar index={1} />
         </Page>
     );
 };
 
 export default Home;
+
+const Box = styled.div`
+    display: absolute;
+    background: linear-gradient(#232226, #3C4659, #898AA5);  
+    height: 592px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const BottomSection = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+`;
+
+const Bt= styled.div`
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+`;

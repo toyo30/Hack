@@ -4,10 +4,13 @@ import Login from "../pages/Login";
 import Start from "../pages/Start";
 import Signup from "../pages/Signup";
 import Home from "../pages/Home";
+import First from "../pages/First";
 import BasicInfo from "../pages/BasicInfo";
 import Mypage from "../pages/Mypage";
 import Messages from "../pages/Messages";
 import UpdateMessage from "pages/UpdateMessage";
+import Alarm from "../pages/Alarm";
+
 
 const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
     return (
@@ -54,6 +57,17 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                     }
                 ></Route>
                 <Route
+                    path="/first"
+                    element={
+                        <First
+                          isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+
+                <Route
                     path="/Mypage"
                     element={
                         <Mypage
@@ -86,7 +100,17 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                 <Route
                     path="/updatemessage"
                     element={
-                        <UpdateMessage
+                      <Messages
+                            isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/alarm"
+                    element={
+                      <Alarm
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}
