@@ -13,7 +13,6 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     const [sleepTime, setSleepTime] = useState("");
-
     const [wakeTimeHour, setWakeTimeHour] = useState("");
     const [wakeTimeMinute, setWakeTimeMinute] = useState("");
 
