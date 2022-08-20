@@ -8,6 +8,7 @@ import First from "../pages/First";
 import BasicInfo from "../pages/BasicInfo";
 import Mypage from "../pages/Mypage";
 import Messages from "../pages/Messages";
+import Alarm from "../pages/Alarm";
 
 const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
     return (
@@ -88,6 +89,16 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                     path="/messages"
                     element={
                         <Messages
+                            isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/alarm"
+                    element={
+                        <Alarm
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}
