@@ -3,6 +3,14 @@ import AppRouter from "./Router";
 import { authService } from "fbase";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import Notification from '../Notification';
+import {
+  requestForToken,
+} from "../fbase";
+import { url, config } from "../SendMessage";
+
+const axios = require("axios");
+
 
 function App() {
     const [init, setInit] = useState(false);
@@ -19,6 +27,45 @@ function App() {
         });
     }, []);
 
+
+    /* web push */
+    const [currentDeviceToken, setCurrentDeviceToken] = useState();
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        requestForToken().then((result) => setCurrentDeviceToken(result));
+    }, [])
+
+    const target_data = {
+    to: `${currentDeviceToken}`,
+    notification: {
+      title: "버튼 클릭 ",
+      body: `클릭횟수 ${count}`,
+    },
+  };
+  
+
+  const sendMessage = () => {
+    axios
+      .post(url, target_data, config)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      sendMessage();    
+    }, 5000);
+    
+   
+    
+  }, [currentDeviceToken]);
+
+
     return (
         <>
             <GlobalStyle />
@@ -31,6 +78,8 @@ function App() {
             ) : (
                 <AppRouter isLoggedIn={false} userObj={null} />
             )}
+            <button onClick={sendMessage}>버튼</button>
+            <Notification/>
         </>
     );
 }

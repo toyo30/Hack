@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Chart from "../components/Chart";
 import Page from "../components/Page";
 import NavBar from "components/NavBar";
+import Text from "components/Text";
 import Typography from "../components/Typography";
 import styled, {css} from "styled-components";
 
@@ -46,27 +47,27 @@ const Mypage = ({ isLoggedIn, userObj }) => {
             <></>
           ) : (
             <div>
-              홈화면입니다. 지금 로그인되지 않았어요
-              <Link to="/signup">회원가입 화면으로 이동하기</Link>
-              <Link to="/login">로그인 화면으로 이동하기</Link>
-              <Link to="/home">홈화면으로 이동하기</Link>
+              <Text>지금 로그인되지 않았어요</Text>
+              <Link to="/signup"><Button>회원가입</Button></Link>
+              <Link to="/login"><Button>로그인</Button></Link>
+              <Link to="/home"><Button>홈</Button></Link>
             </div>
           )}
           {sleepInfoInit ? (
             <RecordBox>
               {visible ? (
                 <WeekRecord>
-                  <Typography>{7}시간 수면,</Typography>
-                  <Typography style={{ fontSize: "28px" }}>
+                  <Text style={{ fontSize: "32px", fontWeight: "600", padding: "10px"}}>{7}시간 수면,</Text>
+                  <Text style={{ fontSize: "28px", padding: "10px", lineHeight: "0px"}}>
                     이번주에는 {3}번 달성했어요
-                  </Typography>
-                  <div style={{ height: "363px", marginTop: "36px" }}>
+                  </Text>
+                  <div style={{ height: "363px", marginTop: "70px" }}>
                     <Chart style={{ height: "100%" }} />
                   </div>
                 </WeekRecord>
               ) : (
                 <AllRecord>
-                  <Typography>나의 수면 History</Typography>
+                  <Text style={{fontSize: "32px", fontWeight: "700", padding: "10px"}}>나의 수면 History</Text>
                   <div style={{ marginTop: "36px" }}>
                     <p style={{ color: "#3C4659", fontSize: "11px" }}>
                       2022.08.8~14
@@ -87,6 +88,7 @@ const Mypage = ({ isLoggedIn, userObj }) => {
                   </div>
                 </AllRecord>
               )}
+
                <ButtonBox
                  className={`${visible === true? 'first': 'second'}`}
                     style={{
@@ -98,38 +100,41 @@ const Mypage = ({ isLoggedIn, userObj }) => {
                   >
                     <Button
                     className={`${visible === true? 'first-open': 'first-close'}`}
-                       onClick={visibleOpenHandler}
+                      onClick={visibleOpenHandler}
                       style={{
                         width: "166px",
-                        height: "33px",
-                        background: "#50586E",
-                        background: `${visible ? '#50586E':'rgba(60, 70, 89, 0.23)'}`,
-                        borderRadius: "8px",
-                        color: `${visible ? '#FFFFFF':'rgba(60, 70, 89, 0.87)'}`,
-                        padding: "5px",
+                        height: "20px",
+                        background: `${visible ? '#FFFFFF':'#E1E1E1'}`,
+                        color: `${visible ? '#50586E':'gray'}`,
+                        padding: "10px",
                         boxSizing: "content-box",
+                        // borderRight: '10px solid #50586E'
+                        borderRadius:"0",
                       }}
                     >
-                      내 Sleep History 더보기
+                      이번주 Sleep History
                     </Button>
                     <Button
                     className={`${visible === true? 'second-open': 'second-close'}`}
                     onClick={visibleHideHandler}
                     style={{
                       width: "166px",
-                      height: "33px",
-                      background: `${visible ? 'rgba(60, 70, 89, 0.23)':'#50586E'}`,
-                      borderRadius: "8px",
-                      color: `${visible ? 'rgba(60, 70, 89, 0.87)':'#FFFFFF'}`,
-                      padding: "5px",
+                      height: "20px",
+                      background: `${visible ? '#E1E1E1':'#FFFFFF'}`,
+                      color: `${visible ? 'gray':'#50586E'}`,
+                      padding: "10px",
                       boxSizing: "content-box",
+                      borderRadius:"0",
                     }}
                     
                   >
-                    이번주 수면 데이터 보기
+                    내 Sleep History 더보기
                   </Button>
                   </ButtonBox>
-                  <ButtonBorder className={`${visible === true? 'color-blue': 'color-gray'}`}/>
+                  <>
+                      <>
+                      </>
+                  </>
             </RecordBox>
           ) : null}
           <NavBar index={2} />
@@ -177,34 +182,29 @@ const RecordBox = styled.div`
   box-sizing: border-box;
 `;
 
-const ButtonBorder = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 20px;
-  bottom: 48px;
-  padding-bottom: 24px;
-    background: #50586E;
-
-
-
-`;
+// const ButtonBorder = styled.div`
+//   position: absolute;
+//   width: 100%;
+//   height: 20px;
+//   bottom: 48px;
+//   padding-bottom: 24px;
+//   background: #50586E;
+// `;
 
 const ButtonBox = styled.div`
   position: absolute;
-  bottom: 68px;
-  padding-bottom: 24px;
-
-  &.first div:first-child {
-    background: #50586E;
-    color:red;
-  }
-
-  &.second div:first-child {
-    background: #50586E;
-  }
-
-  & .first-open {
-    background: red;
-  }
-
+  bottom: 48px;
 `;
+
+  // &.first div:first-child {
+  //   background: #FFFFFF;
+  //   color:red;
+  // }
+
+  // &.second div:first-child {
+  //   background: #FFFFFF;
+  // }
+
+  // & .first-open {
+  //   background: red;
+  // }
