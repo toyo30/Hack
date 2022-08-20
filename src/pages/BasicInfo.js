@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { authService, dbService } from "fbase";
 import { useNavigate, Link } from "react-router-dom";
 
-const Signup = ({ isLoggedIn }) => {
+const BasicInfo = ({ isLoggedIn, userObj }) => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [name, setName] = useState("");
+    const [message, setMessage] = useState("");
     const [sleepTime, setSleepTime] = useState("");
     const [wakeTime, setWakeTime] = useState("");
 
@@ -15,12 +13,8 @@ const Signup = ({ isLoggedIn }) => {
         const {
             target: { name, value },
         } = event;
-        if (name === "email") {
-            setEmail(value);
-        } else if (name === "password") {
-            setPassword(value);
-        } else if (name === "name") {
-            setName(value);
+        if (name === "message") {
+            setMessage(value);
         } else if (name === "sleepTime") {
             setSleepTime(value);
         } else if (name === "wakeTime") {
@@ -30,24 +24,20 @@ const Signup = ({ isLoggedIn }) => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        try {
-            let data;
-            data = await authService
-                .createUserWithEmailAndPassword(email, password)
-                .then(async (res) => {
-                    await res.user.updateProfile({
-                        displayName: name,
-                    });
-                    // await dbService.collection("수면정보").add({
-                    //     name,
-                    //     user: res.user.uid,
-                    //     sleepTime,
-                    //     wakeTime,
-                    // });
+        if (userObj) {
+            try {
+                const res = await dbService.collection("수면정보").add({
+                    name,
+                    user: res.user.uid,
+                    sleepTime,
+                    wakeTime,
                 });
-            navigate("/home");
-        } catch (error) {
-            setError(error.message);
+                navigate("/home");
+            } catch (error) {
+                setError(error.message);
+            }
+        } else {
+            setError("아직 로그인 상태가 아닌걸요??");
         }
     };
     return (
