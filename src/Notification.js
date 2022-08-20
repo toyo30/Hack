@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import {
   requestForToken,
   onMessageListener,
-} from "./firebase";
+} from "./fbase";
 
 
 const Notification = () => {
