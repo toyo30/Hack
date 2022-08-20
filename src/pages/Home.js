@@ -7,7 +7,6 @@ import Link from "../components/Link";
 import Page from "../components/Page";
 import Text from "../components/Text";
 import Button from "../components/Button";
-import Logo from "../components/Logo";
 import NavBar from "components/NavBar";
 import CircularGraph from "components/CircularGraph";
 
@@ -127,6 +126,18 @@ const Home = ({ isLoggedIn, userObj }) => {
         <Page>
           <Box>
 
+            {isLoggedIn ? (
+                <Text style={{fontSize: "24px"}}>
+                    {userObj.displayName} 님, 잘 잡시다.
+                </Text>
+            ) : (
+                <div>
+                    <Text>지금 로그인되지 않았어요</Text>
+                    <Link to="/signup"><Button>회원가입</Button></Link>
+                    <Link to="/login"><Button>로그인</Button></Link>
+                </div>
+            )}
+
             <div style={{ width: "90%", marginTop: "30px" }}>
               <CircularGraph start={startDeg} end={endDeg} />
             </div>
@@ -168,6 +179,14 @@ const Home = ({ isLoggedIn, userObj }) => {
 
             {sleepInfoInit ? (
                 <div>
+                  <button
+                onClick={() => {
+                    authService.signOut();
+                    navigate("/first");
+                }}
+            >
+                로그아웃
+            </button>
                     <div>내일 기상시간 :{wakeTime}</div>
                     <div>수면시간 : {sleepTime}</div>
                     {sleepStartTime ? (

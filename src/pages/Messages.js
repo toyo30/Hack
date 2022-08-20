@@ -59,14 +59,7 @@ const Messages = ({ isLoggedIn, userObj }) => {
                     <div>수면시간 : {sleepTime}</div>
                 </div>
             ) : null} */}
-            <button
-                onClick={() => {
-                    authService.signOut();
-                    navigate("/");
-                }}
-            >
-                로그아웃
-            </button>
+            
             {/* <Link to="/mypage">마이페이지로 이동하기</Link> */}
             <NavBar index={0} />
         </Page>

@@ -6,7 +6,7 @@ import Link from "../components/Link";
 import Page from "../components/Page";
 import Text from "../components/Text";
 import Button from "../components/Button";
-import Logo from "../components/Logo";
+import InputField from "../components/InputField";
 
 const BasicInfo = ({ isLoggedIn, userObj }) => {
     const navigate = useNavigate();
@@ -59,10 +59,10 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                 ) : (
                   <Text style={{fontSize: "30px", lineHeight: "50px", fontWeight: "700"}}>로그인이 안되어있는데요? </Text>
                 )}
+
                 <form onSubmit={onSubmit}>
                     <FormSection>
-                    <div>
-                        내일
+                    <Button style={{width: "310px", height: "60px", margin:"10px"}}>
                         <select
                             value={wakeTimeHour}
                             name="wakeTimeHour"
@@ -95,7 +95,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             <option value="22">22</option>
                             <option value="23">23</option>
                         </select>
-                        시
+                        <Text style={{margin: "0 10px"}}>시</Text>
                         <select
                             value={wakeTimeMinute}
                             name="wakeTimeMinute"
@@ -110,10 +110,10 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             <option value="40">40</option>
                             <option value="50">50</option>
                         </select>
-                        분에 일어날 거에요
-                    </div>
-                    <div>
-                        적어도
+                        <Text style={{margin: "0 10px"}}>분에 일어날래요</Text>
+                    </Button>
+                    <Button style={{width: "310px", height: "60px", margin:"10px"}}>
+                        <Text style={{margin: "0 10px"}}>적어도</Text>
                         <select
                             value={sleepTime}
                             name="sleepTime"
@@ -134,23 +134,28 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             <option value="11">11시간</option>
                             <option value="12">12시간</option>
                         </select>
-                        은 자고 싶어요!
-                    </div>
+                        <Text style={{margin: "0 10px"}}>시간 잘 거예요.</Text>
+                    </Button>
 
-                    <div>
-                        오늘 밤의 나에게 보낼 메시지를 입력해주세요!
-                        <InputField
-                            name="message"
-                            type="text"
-                            placeholder="오늘 밤에 받을 메세지에요."
-                            required
-                            value={message}
-                            onChange={onChange}
-                        />
-                    </div>
+                    <Button style={{width: "310px", height: "200px", margin:"10px", cursor: "default"}}>
+                        <Flex>
+                            <Text style={{height: "20px", margin: "0 0 50px 5px"}}>
+                              오늘 밤에 받을 메시지예요
+                            </Text>
+                            <InputField style={{width:"260px",height: "110px", margin: "0", cursor: "text", margin: "0 0 20px 0 "}}
+                                name="message"
+                                type="text"
+                                placeholder="자기 전의 나에게 보내는 한마디"
+                                required
+                                value={message}
+                                onChange={onChange}
+                            />
+                        </Flex>
+                    </Button>
 
-                    <InputField type="submit" value="시작하기"/>
+                    <InputField style={{width:"310px"}} type="submit" value="시작하기"/>
                     </FormSection>
+
                 </form>
                 {error === "" ? null : (
                     <div
@@ -164,9 +169,6 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                         {error}
                     </div>
                 )}
-                {/* <Link to="/signup">회원가입 화면으로 이동하기</Link>
-                <Link to="/login">로그인 화면으로 이동하기</Link>
-                <Link to="/home">홈화면으로 이동하기</Link> */}
             </Box>
         </Page>
     );
@@ -190,43 +192,7 @@ const FormSection = styled.div`
     flex-direction: column;
 `;
 
-
-const InputField=styled.input`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent !important;
-
-    border: 0;
-    outline: 0;
-    margin: 9px;
-    border-radius: 0;
-    padding: 0px 15px ;
-
-    user-select: none;
-    vertical-align: middle;
-    moz-appearance: none; 
-    /*Reset*/
-    -webkit-appearance: none; // Reset
-    text-decoration: none,
-    color: inherit;
-    '&::-moz-focus-inner': {
-    border-style: none; // Remove Firefox dotted outline.
-    };
-
-    font-family: 'NEXON Lv1 Gothic OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    letter-spacing: -0.5px;
-
-    color: #F2F4F6;
-
-    background: rgba(242, 244, 246, 0.2);
-    border-radius: 14px;
-
-    width: 261px;
-    height: 47px;
+const Flex = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
