@@ -35,6 +35,7 @@ const Messages = ({ isLoggedIn, userObj }) => {
                         상태에요
                     </div>
                     <div>오늘 밤에 받을 메세지에요. {message} </div>
+                    <Link to="/updatemessage">수면 메세지 작성하기</Link>
                 </>
             ) : (
                 <div>
