@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService } from "fbase";
+import Page from "../components/Page";
 
 const Login = ({ isLoggedIn }) => {
     const [email, setEmail] = useState("");
