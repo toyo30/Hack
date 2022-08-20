@@ -43,7 +43,7 @@ function App() {
       body: `클릭횟수 ${count}`,
     },
   };
-    
+  
 
   const sendMessage = () => {
     axios
@@ -54,7 +54,6 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-      setCount(count + 1);
   };
 
   useEffect(() => {
