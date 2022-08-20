@@ -5,13 +5,13 @@ const NavBar = ({ index }) => {
   return (
     <StyledNavBar index={index}>
       <Link to="/messages">
-        <div className="button">MESSAGE</div>
+        <div className={`button ${index === 0 ? "highlight" : ""}`}>MESSAGES</div>
       </Link>
       <Link to="/home">
-        <div className="button">HOME</div>
+        <div className={`button ${index === 1 ? "highlight" : ""}`}>HOME</div>
       </Link>
       <Link to="/mypage">
-        <div className="button">MYPAGE</div>
+        <div className={`button ${index === 2 ? "highlight" : ""}`}>MYPAGE</div>
       </Link>
       <div className="border" />
     </StyledNavBar>
@@ -37,8 +37,8 @@ const StyledNavBar = styled.div`
     text-align: center;
     letter-spacing: 1.25px;
     color: rgba(60, 70, 89, 0.74);
-    &:nth-of-type(${({ index }) => index + 1}) {
-      color: #000;
+    &.highlight {
+      color: black;
     }
     &:not(.highlight) {
       cursor: pointer;

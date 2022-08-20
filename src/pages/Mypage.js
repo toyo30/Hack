@@ -4,6 +4,7 @@ import { dbService, storageService } from "fbase";
 import Button from "../components/Button";
 import Chart from "../components/Chart";
 import Page from "../components/Page";
+import NavBar from "components/NavBar";
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
@@ -49,7 +50,7 @@ const Home = ({ isLoggedIn, userObj }) => {
             ) : null}
             <Button />
             <Chart />
-            <Link to="/home">홈화면으로 이동하기</Link>
+            <NavBar index={2} />
         </Page>
     );
 };
