@@ -298,11 +298,58 @@ const Box = styled.div`
     background: linear-gradient(#232226, #3c4659, #898aa5);
     height: 592px;
     width: 100%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+`;
+
+const BottomBox = styled.div`
+    display: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-top: rgb(100, 100, 100) solid 1px;
+    background-color: #8a8ba633;
+
+    font-family: "NEXON Lv1 Gothic OTF";
+    color: white;
+    .time {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        letter-spacing: -0.5px;
+    }
+    > div {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:first-of-type {
+            gap: 50px;
+        }
+    }
+    > div:last-of-type {
+        > div {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            > div {
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                > div {
+                    cursor: pointer;
+                    text-align: center;
+                }
+            }
+        }
+    }
 `;
 
 const BottomSection = styled.div`

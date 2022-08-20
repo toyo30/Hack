@@ -13,6 +13,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
     const [editWakeTimeHour, setEditWakeTimeHour] = useState("");
     const [editWakeTimeMinute, setEditWakeTimeMinute] = useState("");
     const [sleepStartTime, setSleepStartTime] = useState("");
+    const [sleepStartTimeInit, setSleepStartTimeInit] = useState(false);
 
     const customTime = useCustomTime();
     console.log(customTime);
@@ -66,12 +67,20 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         }
         console.log(hr);
         setSleepStartTime(hr + ":" + wakeTime.split(":")[1]);
+        setSleepStartTimeInit(true);
     }, [wakeTime, sleepTime]);
 
     return (
         <>
             <Page>
-                <div>여기는 명언 페이지에요</div>
+                {setSleepStartTimeInit ? (
+                    <div>
+                        <div>
+                            현재시간 {customTime.hour + ":" + customTime.minute}
+                        </div>
+                        <div>자야 하는 시간 {sleepStartTime}</div>
+                    </div>
+                ) : null}
             </Page>
         </>
     );
