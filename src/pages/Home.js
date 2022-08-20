@@ -13,25 +13,29 @@ import NavBar from "components/NavBar";
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
+    const [editSleepTime, setEditSleepTime] = useState("");
     const [wakeTime, setWakeTime] = useState("");
+    const [sleepInfo, setSleepInfo] = useState(null);
     const [sleepInfoInit, setSleepInfoInit] = useState(false);
     const navigate = useNavigate();
     const [wakeTimeHour, setWakeTimeHour] = useState("");
     const [wakeTimeMinute, setWakeTimeMinute] = useState("");
+    const [sleepStartTime, setSleepStartTime] = useState("");
 
     useEffect(() => {
         if (userObj) {
             dbService.collection("수면정보").onSnapshot((snapshot) => {
                 const sleepInfoArray = snapshot.docs.map((doc) => ({
+                    id: doc.id,
                     ...doc.data(),
                 }));
 
                 const mySleepInfo = sleepInfoArray.find(
                     (e) => e.user === userObj.uid
                 );
-                console.log(mySleepInfo);
-                setSleepTime(mySleepInfo.wakeTime);
-                setWakeTime(mySleepInfo.sleepTime);
+                setSleepInfo(mySleepInfo);
+                setSleepTime(mySleepInfo.sleepTime);
+                setWakeTime(mySleepInfo.wakeTime);
                 const wTime = mySleepInfo.wakeTime.split(":");
                 console.log(wTime[1]);
                 setWakeTimeHour(wTime[0]);
@@ -41,6 +45,21 @@ const Home = ({ isLoggedIn, userObj }) => {
         }
     }, [userObj]);
 
+    useEffect(() => {
+        let hr = wakeTimeHour - sleepTime;
+        if (hr < 0) {
+            hr = hr + 24;
+        }
+        console.log("취침시각", hr);
+        console.log(typeof hr);
+
+        if (hr < 10) {
+            hr = "0" + hr;
+        }
+        console.log(hr);
+        setSleepStartTime(hr + ":" + wakeTimeMinute);
+    }, [wakeTimeHour, wakeTimeMinute, sleepTime]);
+
     const onChange = (event) => {
         const {
             target: { name, value },
@@ -49,14 +68,25 @@ const Home = ({ isLoggedIn, userObj }) => {
             setWakeTimeHour(value);
         } else if (name === "wakeTimeMinute") {
             setWakeTimeMinute(value);
+        } else if (name === "editSleepTime") {
+            setEditSleepTime(value);
         }
-        // } else if (name === "marketType") {
-        //     setMarketType(value);
-        // }
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
+        console.log(sleepInfo);
+        console.log(wakeTimeHour, wakeTimeMinute, sleepTime);
+        await dbService.doc(`수면정보/${sleepInfo.id}`).update({
+            wakeTime: wakeTimeHour + ":" + wakeTimeMinute,
+            sleepTime: editSleepTime,
+        });
+
+        // setWakeTimeHour("");
+        // setWakeTimeMinute("");
+        setEditSleepTime("");
+
+        navigate("/home");
     };
 
     return (
@@ -88,8 +118,11 @@ const Home = ({ isLoggedIn, userObj }) => {
                 ) : null} */}
             {sleepInfoInit ? (
                 <div>
-                    <div>내일 기상시간 : {wakeTime}</div>
+                    <div>내일 기상시간 :{wakeTime}</div>
                     <div>수면시간 : {sleepTime}</div>
+                    {sleepStartTime ? (
+                        <div>오늘 {sleepStartTime}에 잠들어야해요!</div>
+                    ) : null}
                     <div>여기에 시계 컴포넌트가 들어갑니다!</div>
                     <div>내일 기상 시간 수정하기</div>
                     <form onSubmit={onSubmit}>
@@ -100,16 +133,16 @@ const Home = ({ isLoggedIn, userObj }) => {
                             required
                         >
                             <option value="">시간선택</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
@@ -141,8 +174,8 @@ const Home = ({ isLoggedIn, userObj }) => {
                         </select>
                         <div>수면 시간 설정하기</div>
                         <select
-                            // value={marketType}
-                            name="sleepTime"
+                            value={editSleepTime}
+                            name="editSleepTime"
                             onChange={onChange}
                             required
                         >
@@ -160,6 +193,7 @@ const Home = ({ isLoggedIn, userObj }) => {
                             <option value="11">11시간</option>
                             <option value="12">12시간</option>
                         </select>
+                        <button type="submit">취침 시간 계산하기</button>
                     </form>
                 </div>
             ) : null}
