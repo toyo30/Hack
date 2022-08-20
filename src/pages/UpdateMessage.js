@@ -76,7 +76,7 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
                 </div>
             ) : null}
             <Button />
-            <NavBar index={2} />
+            <NavBar index={0} />
         </Page>
     );
 };
