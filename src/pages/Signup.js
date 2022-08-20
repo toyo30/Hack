@@ -9,8 +9,8 @@ const Signup = ({ isLoggedIn }) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [name, setName] = useState("");
-    const [sleepTime, setSleepTime] = useState("");
-    const [wakeTime, setWakeTime] = useState("");
+    // const [sleepTime, setSleepTime] = useState("");
+    // const [wakeTime, setWakeTime] = useState("");
 
     const onChange = (event) => {
         const {
@@ -22,10 +22,6 @@ const Signup = ({ isLoggedIn }) => {
             setPassword(value);
         } else if (name === "name") {
             setName(value);
-        } else if (name === "sleepTime") {
-            setSleepTime(value);
-        } else if (name === "wakeTime") {
-            setWakeTime(value);
         }
     };
     const onSubmit = async (event) => {
@@ -46,7 +42,7 @@ const Signup = ({ isLoggedIn }) => {
                     //     wakeTime,
                     // });
                 });
-            navigate("/home");
+            navigate("/basicinfo");
         } catch (error) {
             setError(error.message);
         }
@@ -84,7 +80,7 @@ const Signup = ({ isLoggedIn }) => {
                         value={name}
                         onChange={onChange}
                     />
-                    <input
+                    {/* <input
                         name="wakeTime"
                         type="text"
                         placeholder="내일 기상시간"
@@ -99,7 +95,7 @@ const Signup = ({ isLoggedIn }) => {
                         required
                         value={sleepTime}
                         onChange={onChange}
-                    />
+                    /> */}
 
                     <input type="submit" value="회원가입" />
                 </form>
