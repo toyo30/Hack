@@ -2,31 +2,28 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 
 const COLOR = {
-  active: "#2a8ff4",
-  inactive: "rgb(226, 234, 253)"
+  active: "#F28888",
+  inactive: "#565D73",
+  background: "#000",
 };
 
 const CircularGraph = ( { shake, start, end }) => {
   const [ active, setActive ] = useState(false);
-  const [ startDeg, setStartDeg ] = useState(0);
-  const [ endDeg, setEndDeg ] = useState(0);
 
   useEffect( () => {
     setTimeout( () => {
-      setStartDeg( start );
-      setEndDeg( end );
       setActive(true);
     }, 800);
   }, [])
 
   return (
-    <Wrapper shake={shake} start={startDeg} end={endDeg}>
+    <Wrapper shake={shake} start={active ? start : 0} end={active ? end : 0}>
       <div className="background">
       </div>
       <div className="rotationBox">
         <div className="semiCircle fixed">
           <div>
-            <div className={`${endDeg - startDeg >= 180 ? "filled" : ""}`}/>
+            <div className={`${end - start >= 180 ? "filled" : ""}`}/>
           </div>
         </div>
         <div className="semiCircle rotate">
@@ -34,7 +31,7 @@ const CircularGraph = ( { shake, start, end }) => {
             <div className="filled"/>
           </div>
         </div>
-        <div className={`semiCircle hider ${endDeg - startDeg >= 180 ? "" : "active"}`}>
+        <div className={`semiCircle hider ${end - start >= 180 ? "" : "active"}`}>
           <div>
             <div className=""/>
           </div>
@@ -42,9 +39,14 @@ const CircularGraph = ( { shake, start, end }) => {
       </div>
       <div className="center">
       </div>
-      { Array(12).fill(1).map( (_, index) => (
-        <Divider key={index} degree={active ? index * 30 : 0} >
+      { Array(24).fill(1).map( (_, index) => (
+        <Divider key={index} degree={active ? index * 15 : 0} >
           <div />
+          { (index == 12 || index === 0) && (
+          <span>
+            12
+          </span>
+          )}
         </Divider>
       ))}
     </Wrapper>
@@ -82,11 +84,11 @@ const Wrapper = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 1/ 1;
-  animation: fadeIn 1s ${({shake}) => shake ? ", shake 1s 2.3s infinite" : ""};
+  animation: fadeIn 1s ${({shake}) => shake ? ", shake 1s 1.5s infinite" : ""};
   
 
   * {
-    transition: transform 1.5s;
+    transition: transform 0.5s;
   }
 
   .background {
@@ -154,7 +156,7 @@ const Wrapper = styled.div`
     width: 80%;
     aspect-ratio: 1/ 1;
     border-radius: 100%;
-    background-color: #FFF;
+    background-color: ${COLOR.background};
   }
 `;
 
@@ -177,7 +179,13 @@ const Divider = styled.div`
     top: 40px;
     width: 5px;
     height: 10px;
-    background-color: #000;
+    background-color: #fff; 
+  }
+  > span {
+    text-align: center;
+    margin-top: 60px;
+    color: white;
+    font-weight: 500;
   }
 
   transform: rotate( ${({degree}) => degree}deg );
