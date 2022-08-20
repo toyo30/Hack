@@ -4,6 +4,9 @@ import Login from "../pages/Login";
 import Start from "../pages/Start";
 import Signup from "../pages/Signup";
 import Home from "../pages/Home";
+import BasicInfo from "../pages/BasicInfo";
+import Mypage from "../pages/Mypage";
+import Messages from "../pages/Messages";
 
 const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
     return (
@@ -43,6 +46,36 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                     path="/home"
                     element={
                         <Home
+                            isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/Mypage"
+                    element={
+                        <Mypage
+                            isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/basicinfo"
+                    element={
+                        <BasicInfo
+                            isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/messages"
+                    element={
+                        <Messages
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}

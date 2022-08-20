@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authService, dbService, storageService } from "fbase";
+import { dbService, storageService } from "fbase";
+import Button from "../components/Button";
+import Chart from "../components/Chart";
 import Page from "../components/Page";
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
     const [wakeTime, setWakeTime] = useState("");
     const [sleepInfoInit, setSleepInfoInit] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         dbService.collection("수면정보").onSnapshot((snapshot) => {
@@ -46,16 +47,9 @@ const Home = ({ isLoggedIn, userObj }) => {
                     <div>수면시간 : {sleepTime}</div>
                 </div>
             ) : null}
-            <button
-                onClick={() => {
-                    authService.signOut();
-                    navigate("/");
-                }}
-            >
-                로그아웃
-            </button>
-            <Link to="/mypage">마이페이지로 이동하기</Link>
-            <Link to="/messages">나의 메세지로 이동하기</Link>
+            <Button />
+            <Chart />
+            <Link to="/home">홈화면으로 이동하기</Link>
         </Page>
     );
 };
