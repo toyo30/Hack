@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
+import Page from "../components/Page";
 
 const Home = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
@@ -25,7 +26,7 @@ const Home = ({ isLoggedIn, userObj }) => {
     }, []);
 
     return (
-        <>
+        <Page>
             {isLoggedIn ? (
                 <div>
                     {userObj.displayName} 님 홈화면입니다. 지금 로그인된
@@ -53,7 +54,7 @@ const Home = ({ isLoggedIn, userObj }) => {
             >
                 로그아웃
             </button>
-        </>
+        </Page>
     );
 };
 
