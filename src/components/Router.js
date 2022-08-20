@@ -6,6 +6,7 @@ import Signup from "../pages/Signup";
 import Home from "../pages/Home";
 import BasicInfo from "../pages/BasicInfo";
 import Mypage from "../pages/Mypage";
+import Messages from "../pages/Messages";
 
 const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
     return (
@@ -65,6 +66,16 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                     path="/basicinfo"
                     element={
                         <BasicInfo
+                            isLoggedIn={isLoggedIn}
+                            userObj={userObj}
+                            setUserObj={setUserObj}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/messages"
+                    element={
+                        <Messages
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}

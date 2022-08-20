@@ -3,33 +3,33 @@ import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
 import Page from "../components/Page";
 
-const Home = ({ isLoggedIn, userObj }) => {
-    const [sleepTime, setSleepTime] = useState("");
-    const [wakeTime, setWakeTime] = useState("");
-    const [sleepInfoInit, setSleepInfoInit] = useState(false);
+const Messages = ({ isLoggedIn, userObj }) => {
+    // const [sleepTime, setSleepTime] = useState("");
+    // const [wakeTime, setWakeTime] = useState("");
+    // const [sleepInfoInit, setSleepInfoInit] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        dbService.collection("수면정보").onSnapshot((snapshot) => {
-            const sleepInfoArray = snapshot.docs.map((doc) => ({
-                ...doc.data(),
-            }));
+    // useEffect(() => {
+    //     dbService.collection("수면정보").onSnapshot((snapshot) => {
+    //         const sleepInfoArray = snapshot.docs.map((doc) => ({
+    //             ...doc.data(),
+    //         }));
 
-            const mySleepInfo = sleepInfoArray.find(
-                (e) => e.user === userObj.uid
-            );
-            console.log(mySleepInfo);
-            setSleepTime(mySleepInfo.wakeTime);
-            setWakeTime(mySleepInfo.sleepTime);
-        });
-        setSleepInfoInit(true);
-    }, []);
+    //         const mySleepInfo = sleepInfoArray.find(
+    //             (e) => e.user === userObj.uid
+    //         );
+    //         console.log(mySleepInfo);
+    //         setSleepTime(mySleepInfo.wakeTime);
+    //         setWakeTime(mySleepInfo.sleepTime);
+    //     });
+    //     setSleepInfoInit(true);
+    // }, []);
 
     return (
         <Page>
             {isLoggedIn ? (
                 <div>
-                    {userObj.displayName} 님 홈화면입니다. 지금 로그인된
+                    {userObj.displayName} 님 메시지화면입니다. 지금 로그인된
                     상태에요
                 </div>
             ) : (
@@ -40,12 +40,12 @@ const Home = ({ isLoggedIn, userObj }) => {
                     <Link to="/home">홈화면으로 이동하기</Link>
                 </div>
             )}
-            {sleepInfoInit ? (
+            {/* {sleepInfoInit ? (
                 <div>
                     <div>내일 기상시간 : {wakeTime}</div>
                     <div>수면시간 : {sleepTime}</div>
                 </div>
-            ) : null}
+            ) : null} */}
             <button
                 onClick={() => {
                     authService.signOut();
@@ -54,10 +54,10 @@ const Home = ({ isLoggedIn, userObj }) => {
             >
                 로그아웃
             </button>
-            <Link to="/mypage">마이페이지로 이동하기</Link>
-            <Link to="/messages">나의 메세지로 이동하기</Link>
+            {/* <Link to="/mypage">마이페이지로 이동하기</Link> */}
+            <Link to="/home">홈화면으로 이동하기</Link>
         </Page>
     );
 };
 
-export default Home;
+export default Messages;
