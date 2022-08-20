@@ -295,11 +295,10 @@ const BottomBox =  styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-top: rgb(100, 100, 100) solid 1px;
   background-color: #8A8BA633;
   
-    font-family: 'NEXON Lv1 Gothic OTF';
-    color: white;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  color: white;
   .time {
     font-style: normal;
     font-weight: 700;
