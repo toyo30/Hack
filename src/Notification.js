@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { requestForToken, onMessageListener } from "./fbase";
 import Link from "./components/Link";
+import { useNavigate } from "react-router-dom";
 
 const Notification = ({
     sleepStartTimeHour,
@@ -30,6 +31,7 @@ const Notification = ({
         );
     }
 
+    const navigate = useNavigate();
     useEffect(() => {
         if (
             sleepStartTimeHour == serverTimeHour &&
@@ -40,9 +42,7 @@ const Notification = ({
             navigator.serviceWorker.ready.then(function (registration) {
                 registration.showNotification(`${notification?.title}`, {
                     body: `${notification?.body}`,
-
                     icon: "../images/touch/chrome-touch-icon-192x192.png",
-
                     vibrate: [200, 100, 200, 100, 200, 100, 200],
                 });
             });
