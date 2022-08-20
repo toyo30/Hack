@@ -20,12 +20,15 @@ const Login = ({ isLoggedIn }) => {
     };
 
     const onSubmit = async (event) => {
+        console.log(email, password);
+        event.preventDefault();
         try {
             let data;
             data = await authService.signInWithEmailAndPassword(
                 email,
                 password
             );
+            console.log(data);
             navigate("/home");
         } catch (error) {
             setError(error.message);
@@ -73,6 +76,14 @@ const Login = ({ isLoggedIn }) => {
             <Link to="/signup">회원가입 화면으로 이동하기</Link>
             <Link to="/login">로그인 화면으로 이동하기</Link>
             <Link to="/home">홈화면으로 이동하기</Link>
+            <button
+                onClick={() => {
+                    authService.signOut();
+                    navigate("/");
+                }}
+            >
+                로그아웃
+            </button>
         </div>
     );
 };
