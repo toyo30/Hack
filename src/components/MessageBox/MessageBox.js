@@ -1,5 +1,6 @@
 import React from "react";
 import styled, {ThemeProvider, css} from "styled-components";
+import PlusIcon from "../PlusIcon";
 
 const theme = {
   currentType: '',
@@ -27,7 +28,7 @@ function MessageBox({add, type, userName, date, content, children, ...rest}) {
   if(add) {
     return (<ThemeProvider theme={theme}>
       <MessageBoxRoot style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-      
+      <PlusIcon/>
       </MessageBoxRoot>
     </ThemeProvider>)
   } 
