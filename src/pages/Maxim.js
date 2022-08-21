@@ -106,7 +106,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         notification: {
             title: "내가 오늘 아침에 쓴 메시지",
             body: `${message}`,
-            click_action: "http:localhost:3000/message",
+            click_action: "localhost:3000/messages",
         },
     };
 
