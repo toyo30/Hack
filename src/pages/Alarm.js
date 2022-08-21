@@ -1,16 +1,21 @@
 import React from 'react';
+import { authService, dbService, storageService } from "fbase";
+
 import Link from "../components/Link";
 import styled, {css} from 'styled-components';
 import Page from "../components/Page";
 import Button from "../components/Button";
 import Text from "../components/Text";
+import CircularGraph from "components/CircularGraph";
 
 function Alarm() {
     return (
     <Page>
         <Box>
           <Text style={{fontSize: "36px"}}>기상시간</Text>
-          <div>시계</div>
+          <div style={{ width: "90%", marginTop: "30px" }}>
+              <CircularGraph start={0} end={14} />
+          </div>
           <Text>멘트</Text>
           <Link to ="/messages">
               <Button style={{width: '61.5px', height: '38px'}}>중단</Button>
@@ -18,6 +23,7 @@ function Alarm() {
         </Box>
     </Page>);
 };
+
 
 
 const Box = styled.body`
