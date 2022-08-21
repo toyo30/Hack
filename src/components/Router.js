@@ -8,9 +8,9 @@ import First from "../pages/First";
 import BasicInfo from "../pages/BasicInfo";
 import Mypage from "../pages/Mypage";
 import Messages from "../pages/Messages";
-import UpdateMessage from "pages/UpdateMessage";
 import Alarm from "../pages/Alarm";
 import Maxim from "../pages/Maxim";
+import UpdateMessage from "../pages/UpdateMessage";
 
 const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
     return (
@@ -100,7 +100,7 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                 <Route
                     path="/updatemessage"
                     element={
-                        <Messages
+                        <UpdateMessage
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { dbService, storageService } from "fbase";
-import Button from "../components/Button";
-import Chart from "../components/Chart";
+import styled, { css } from "styled-components";
 import Page from "../components/Page";
 import NavBar from "components/NavBar";
+import Text from "../components/Text";
+import Button from "../components/Button";
+import InputField from "components/InputField";
+
 
 const UpdateMessage = ({ isLoggedIn, userObj }) => {
     const navigate = useNavigate();
@@ -51,34 +54,57 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
 
     return (
         <Page>
+          <Box>
             {isLoggedIn ? (
-                <div>{userObj.displayName} 님 어젯밤 잘 주무셨나요??</div>
+                <Text style={{fontSize: "28px"}}>{userObj.displayName} 님, <br /> 어젯밤 잘 주무셨나요?</Text>
             ) : (
-                <div>
-                    홈화면입니다. 지금 로그인되지 않았어요
-                    <Link to="/signup">회원가입 화면으로 이동하기</Link>
-                    <Link to="/login">로그인 화면으로 이동하기</Link>
-                    <Link to="/home">홈화면으로 이동하기</Link>
-                </div>
+                <ContentBox>
+                    지금 로그인되지 않았어요
+                    <Link to="/signup"><Button>회원가입</Button></Link>
+                    <Link to="/login"><Button>로그인</Button></Link>
+                    <Link to="/home"><Button>홈화면</Button></Link>
+                </ContentBox>
             )}
             {sleepInfoInit ? (
-                <div>
+                <ContentBox>
                     <form onSubmit={onSubmit}>
-                        <textarea
+                        <InputField
+                          style={{height: "300px"}}
                             value={message}
                             type="text"
                             name="message"
                             onChange={onChange}
+                            placeholder="오늘 밤의 나에게 한마디"
                         />
-
-                        <button type="submit">메세지 수정</button>
+                        <Button type="submit" >저장</Button>
                     </form>
-                </div>
+                </ContentBox>
             ) : null}
-            <Button />
-            <NavBar index={0} />
+          </Box>
+          <NavBar index={0} />
         </Page>
     );
 };
 
 export default UpdateMessage;
+
+const Box = styled.div`
+    background: linear-gradient(#232226, #3c4659, #898aa5);
+    height: 592px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+
+const ContentBox = styled.div`
+    margin: 0;
+    padding: 0;
+    width:90%;
+    height:100%;
+    display:flex
+    flex-direction: column;
+    align-items: center;
+`;

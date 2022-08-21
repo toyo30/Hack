@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
 import Page from "../components/Page";
-import NavBar from "components/NavBar";
+import Button from "../components/Button";
+import NavBar from "../components/NavBar";
 import MessageBox from "../components/MessageBox";
 import MessageGroup from '../components/MessageGroup';
 
@@ -33,8 +34,7 @@ const Messages = ({ isLoggedIn, userObj }) => {
             {isLoggedIn && sleepInfoInit ? (
                 <>
                     <div>
-                        {userObj.displayName} 님 메시지화면입니다. 지금 로그인된
-                        상태에요
+                        {userObj.displayName} 님의 메시지
                     </div>
                     <div>오늘 밤에 받을 메세지에요. {message} </div>
                     <Link to="/updatemessage">수면 메세지 작성하기</Link>
@@ -61,9 +61,9 @@ const Messages = ({ isLoggedIn, userObj }) => {
             ) : (
                 <div>
                     홈화면입니다. 지금 로그인되지 않았어요
-                    <Link to="/signup">회원가입 화면으로 이동하기</Link>
-                    <Link to="/login">로그인 화면으로 이동하기</Link>
-                    <Link to="/home">홈화면으로 이동하기</Link>
+                    <Link to="/signup"><Button>회원가입</Button></Link>
+                    <Link to="/login"><Button>로그인</Button></Link>
+                    <Link to="/home"><Button>홈화면</Button></Link>
                 </div>
             )}
             {/* {sleepInfoInit ? (
