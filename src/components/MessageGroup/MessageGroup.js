@@ -5,14 +5,16 @@ const theme = {
   currentType: '',
   color: {
       night: {
-        background: 'rgba(129, 131, 158, 1)',
+        background: '#5F647B',
         userInfo: 'rgba(255, 255, 255, 0.87)',
         content: '#FBFBFB',
+        boxBackground: '#81839E',
       },
       day: {
         background: '#FBFBFB',
         userInfo: 'rgba(60, 70, 89, 0.87)',
         content: 'rgba(60, 70, 89, 0.87)',
+        boxBackground: '#FBFBFB',
       },
 
   }
@@ -21,7 +23,6 @@ const theme = {
 
 function MessageGroup({type, userName, date, content, children, ...rest}) {
   theme.currentType = type;
-  console.log(theme.currentType);
   return (
     <ThemeProvider theme={theme}>
       <MessageGroupRoot>
@@ -34,17 +35,17 @@ function MessageGroup({type, userName, date, content, children, ...rest}) {
 export default MessageGroup;
 
 const MessageGroupRoot = styled.div`
+position: relative;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; 
+    background: ${(props) => props.theme.color[props.theme.currentType].boxBackground};
+    padding: 19px 0;
     
 
 `;
 
 
-// MessageBox.defaultProps = {
-//   userName: '민지',
-//   date: '8/16 09:03',
-//   type:'night',
-//   content: '맨날 과제 미루는 습관 좀 고치고 일찍 자라,,',
-// }
+MessageGroup.defaultProps = {
+  type:'night',
+}
