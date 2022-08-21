@@ -5,23 +5,33 @@ const theme = {
   currentType: '',
   color: {
       night: {
-        background: 'rgba(129, 131, 158, 1)',
+        background: '#5F647B',
         userInfo: 'rgba(255, 255, 255, 0.87)',
         content: '#FBFBFB',
+        boxBackground: '#81839E',
       },
       day: {
-        background: '#FBFBFB',
+        background: '#F2F4F6',
         userInfo: 'rgba(60, 70, 89, 0.87)',
         content: 'rgba(60, 70, 89, 0.87)',
+        boxBackground: '#FBFBFB',
       },
 
   }
 }
 
 
-function MessageBox({type, userName, date, content, children, ...rest}) {
+function MessageBox({add, type, userName, date, content, children, ...rest}) {
   theme.currentType = type;
-  console.log(theme.currentType);
+
+  if(add) {
+    return (<ThemeProvider theme={theme}>
+      <MessageBoxRoot style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+      
+      </MessageBoxRoot>
+    </ThemeProvider>)
+  } 
+
   return (
     <ThemeProvider theme={theme}>
       <MessageBoxRoot>
@@ -33,7 +43,7 @@ function MessageBox({type, userName, date, content, children, ...rest}) {
           {content}
         </ContentBox>
       </MessageBoxRoot>
-      </ThemeProvider>
+    </ThemeProvider>
   );
 }
 
@@ -44,10 +54,12 @@ const MessageBoxRoot = styled.div`
   height: 150px;
   border-radius: 23.5px;
   background: ${(props) => props.theme.color[props.theme.currentType].background};
+  margin-bottom: 19px;
 
 `;
 
 const UserInfoBox = styled.div`
+
   display: flex;
   box-sizing: border-box;
   padding: 14px 30px;
