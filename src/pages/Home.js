@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "fbase";
-
 import styled, { css } from "styled-components";
 import Link from "../components/Link";
 import Page from "../components/Page";
@@ -9,6 +8,7 @@ import Text from "../components/Text";
 import Button from "../components/Button";
 import NavBar from "components/NavBar";
 import CircularGraph from "components/CircularGraph";
+import LoginBox from "components/LoginBox";
 
 const Home = ({ isLoggedIn, userObj }) => {
     // const [editSleepTime, setEditSleepTime] = useState("");
@@ -225,15 +225,7 @@ const Home = ({ isLoggedIn, userObj }) => {
                         </Button>
                     </>
                 ) : (
-                    <div>
-                        <Text>지금 로그인되지 않았어요</Text>
-                        <Link to="/signup">
-                            <Button>회원가입</Button>
-                        </Link>
-                        <Link to="/login">
-                            <Button>로그인</Button>
-                        </Link>
-                    </div>
+                    <LoginBox></LoginBox>
                 )}
 
                 {isClockInfoSet && isClockInfoSet2 ? (
@@ -431,7 +423,6 @@ const Home = ({ isLoggedIn, userObj }) => {
 export default Home;
 
 const Box = styled.div`
-    display: absolute;
     background: linear-gradient(#232226, #3c4659, #898aa5);
     height: 592px;
     width: 100%;
@@ -442,7 +433,6 @@ const Box = styled.div`
 `;
 
 const BottomBox = styled.div`
-    display: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
