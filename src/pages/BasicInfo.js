@@ -55,9 +55,10 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                 {isLoggedIn ? (
                     <Text
                         style={{
-                            fontSize: "30px",
+                            fontSize: "29px",
                             lineHeight: "50px",
                             fontWeight: "700",
+                            paddingTop: "25px"
                         }}
                     >
                         기본 정보를 입력해주세요
@@ -67,7 +68,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                 )}
 
                 <form onSubmit={onSubmit}>
-                    <FormSection>
+                    <Flex>
                         <Button
                             style={{
                                 width: "310px",
@@ -81,7 +82,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                                 onChange={onChange}
                                 required
                             >
-                                <option value="">시 선택 ▾</option>
+                                <option value="">선택 ▾</option>
                                 <option value="00">00</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -114,7 +115,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                                 onChange={onChange}
                                 required
                             >
-                                <option value="">분 선택 ▾</option>
+                                <option value="">선택 ▾</option>
                                 <option value="00">00</option>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
@@ -141,7 +142,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                                 onChange={onChange}
                                 required
                             >
-                                <option value="">수면 시간 선택</option>
+                                <option value="">선택 ▾</option>
                                 <option value="1">1시간</option>
                                 <option value="2">2시간</option>
                                 <option value="3">3시간</option>
@@ -164,8 +165,9 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             style={{
                                 width: "310px",
                                 height: "200px",
-                                margin: "10px",
+                                margin: "10px 10px 30px 10px",
                                 cursor: "default",
+                                paddingTop: "20px"
                             }}
                         >
                             <Flex>
@@ -184,6 +186,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                                         margin: "0",
                                         cursor: "text",
                                         margin: "0 0 20px 0 ",
+                                        paddingBottom: "50px"
                                     }}
                                     name="message"
                                     type="text"
@@ -196,11 +199,11 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                         </Button>
 
                         <InputField
-                            style={{ width: "310px" }}
+                            style={{ width: "310px"}}
                             type="submit"
                             value="시작하기"
                         />
-                    </FormSection>
+                    </Flex>
                 </form>
                 {error === "" ? null : (
                     <div
@@ -232,14 +235,11 @@ const Box = styled.body`
     justify-content: space-around;
 `;
 
-const FormSection = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
 
 const Flex = styled.div`
     display: flex;
     flex-direction: column;
+    padding-bottom: 30px;
 `;
 
 const Select = styled.select`
@@ -249,7 +249,7 @@ const Select = styled.select`
     -moz-appearance: textfield;
 
     border-radius: 8px;
-    width: 72px;
+    width: 50px;
     height: 25px;
     background: rgba(242, 244, 246, 0.2);
     padding-left: 5px;

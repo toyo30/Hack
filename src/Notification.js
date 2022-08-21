@@ -33,7 +33,6 @@ const Notification = ({
 
     const navigate = useNavigate();
     useEffect(() => {
-        console.log("시간 같다~");
         notify();
         navigator.serviceWorker.ready.then(function (registration) {
             registration.showNotification(`${notification?.title}`, {

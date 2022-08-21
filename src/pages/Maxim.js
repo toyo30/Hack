@@ -34,7 +34,8 @@ const Maxim = ({ isLoggedIn, userObj }) => {
     const [sleepStartTime, setSleepStartTime] = useState("");
     const [sleepStartTimeInit, setSleepStartTimeInit] = useState(false);
     const [message, setMessage] = useState("");
-    const [hasMessageSent, setHasMessageSent] = useState(false);
+    const [hasMyMessageSent, setHasMyMessageSent] = useState(false);
+    const [hasMaximSent, setHasMaximSent] = useState(false);
     const customTime = useCustomTime();
     // console.log(customTime);
 
@@ -79,6 +80,9 @@ const Maxim = ({ isLoggedIn, userObj }) => {
     }, [wakeTime, sleepTime]);
 
     //메세지 보내는 부분
+    const validateHour = (hour) => {
+        return hour === 24 ? 0 : hour;
+    };
 
     useEffect(() => {
         // console.log(sleepStartTime.split(":")[0]);
@@ -88,10 +92,18 @@ const Maxim = ({ isLoggedIn, userObj }) => {
             sleepStartTime.split(":")[0] == customTime.hour &&
             sleepStartTime.split(":")[1] == customTime.minute
         ) {
-            if (hasMessageSent === false) {
-                console.log("돼야하는데??");
+            if (hasMyMessageSent === false) {
                 sendMessage();
-                setHasMessageSent(true);
+                setHasMyMessageSent(true);
+            }
+        }
+        if (
+            sleepStartTime.split(":")[0] == validateHour(customTime.hour + 1) &&
+            sleepStartTime.split(":")[1] == customTime.minute
+        ) {
+            if (hasMaximSent === false) {
+                sendMaxim();
+                setHasMaximSent(true);
             }
         }
     }, [customTime.second]);
@@ -105,7 +117,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         requestForToken().then((result) => setCurrentDeviceToken(result));
     }, []);
 
-    const target_data = {
+    const target_data_message = {
         to: `${currentDeviceToken}`,
         notification: {
             title: "내가 오늘 아침에 쓴 메시지",
@@ -151,7 +163,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
                         <div>자야 하는 시간 {sleepStartTime}</div>
                     </div>
                 ) : null}
-                <button>버튼</button>
+                <button onClick={() => sendMessage()}>버튼</button>
                 <Notification
                     sleepStartTimeHour={sleepStartTime.split(":")[0]}
                     sleepStartTimeMinute={sleepStartTime.split(":")[1]}
