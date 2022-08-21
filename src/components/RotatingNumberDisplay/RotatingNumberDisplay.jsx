@@ -39,7 +39,6 @@ const Wrapper = styled.div`
 
 const Digit = styled.div`
   position: relative;
-  ${({ value }) => value === null && "width: 0px"};
   overflow: hidden;
   height: 1000%;
   display: flex;

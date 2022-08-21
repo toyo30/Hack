@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import useCustomTime from "../../zustand/useCustomTime";
+import RotatingNumberDisplay from "components/RotatingNumberDisplay";
 
 const COLOR = {
   active: "#F28888",
   inactive: "#565D73",
   background: "#000",
 };
+
+const TRANSITION_TIME = 1.5;
 
 const CircularGraph = ( { shake, start, end }) => {
   const [ active, setActive ] = useState(false);
@@ -41,9 +44,29 @@ const CircularGraph = ( { shake, start, end }) => {
       </div>
       <div className="center">
         <div className={`digital ${active ? "show" : ""}`}>
-          {customTime.hour.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
-          {customTime.minute.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
-          {customTime.second.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}
+          <div>
+            <RotatingNumberDisplay number={ customTime.hour } css={`
+              color: white;
+              font-weight: 400;
+              font-size: 40px;
+            `} oneMarginLeft={-3}/>
+          </div>:
+          <div>
+            <RotatingNumberDisplay number={ customTime.minute } css={`
+              color: white;
+              font-weight: 400;
+              font-size: 40px;
+            `} oneMarginLeft={-3}/>
+          </div>:
+          <div>
+            <RotatingNumberDisplay number={ customTime.second } css={`
+              color: white;
+              font-weight: 400;
+              font-size: 40px;
+            `} oneMarginLeft={-3}
+            on={active}
+            />
+          </div>
         </div>
         <AnalogueClock hour={customTime.hour} minute={customTime.minute} show={active}>
           <div />
@@ -95,11 +118,7 @@ const Wrapper = styled.div`
   width: 100%;
   aspect-ratio: 1/ 1;
   animation: fadeIn 1s ${({shake}) => shake ? ", shake 1s 2.5s infinite" : ""};
-  
 
-  * {
-    transition: transform 1.5s;
-  }
 
   .background {
     position: absolute;
@@ -118,6 +137,7 @@ const Wrapper = styled.div`
     aspect-ratio: 1/ 1;
 
     transform: rotate( ${({start}) => start}deg );
+    transition: transform ${TRANSITION_TIME}s;
   }
 
   .semiCircle {
@@ -149,6 +169,7 @@ const Wrapper = styled.div`
   }
   .rotate {
     transform: rotate( ${({ start, end }) => end - start - 90 }deg);
+    transition: transform ${TRANSITION_TIME}s;
   }
   .hider {
     &:not(.active) {
@@ -172,13 +193,20 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     > div.digital {
+      display: flex;
+      align-items: center;
+      opacity: 0;
       color: white;
       font-weight: 400;
       font-size: 40px;
-      opacity: 0;
       &.show {
         opacity: 1;
         transition: opacity 1s;
+      }
+      > div {
+        position: relative;
+        width: max-content;
+        height: 50px;
       }
     }
   }
@@ -191,6 +219,7 @@ const AnalogueClock = styled.div`
   display: flex;
   justify-content: center;
   transform: rotate( ${({hour, minute}) => hour * (360 / 24) + minute * (360 / 24 / 60) }deg );
+  transition: transform ${TRANSITION_TIME}s;
 
   > div {
     width: 5px;
@@ -229,7 +258,8 @@ const Divider = styled.div`
     font-weight: 500;
   }
 
-  transform: rotate( ${({degree}) => degree}deg );
+  transform: rotate( ${ ({degree}) => degree}deg );
+  transition: transform ${TRANSITION_TIME}s;
 `;
 
 export default CircularGraph;
