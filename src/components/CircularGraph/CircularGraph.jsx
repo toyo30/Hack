@@ -22,7 +22,7 @@ const CircularGraph = ( { shake, start, end }) => {
   }, [])
 
   return (
-    <Wrapper shake={shake} start={active ? start : 0} end={active ? end : 0}>
+    <Wrapper start={active ? start : 0} end={active ? end : 0} className={`${shake ? "shake" : ""}`}>
       <div className="background">
       </div>
       <div className="rotationBox">
@@ -117,7 +117,11 @@ const Wrapper = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 1/ 1;
-  animation: fadeIn 1s ${({shake}) => shake ? ", shake 1s 2.5s infinite" : ""};
+  animation: fadeIn 1s;
+
+  &.shake {
+    animation: shake 1s infinite;
+  }
 
 
   .background {
