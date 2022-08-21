@@ -51,7 +51,9 @@ const StyledNavBar = styled.div`
     bottom: 0px;
     background-color: black;
     transform: translateX(${({ index }) => index * 100}%);
-  }
+  };
+  z-index: 1500;
+  background: #FFFFFF;
 `;
 
 export default NavBar;
