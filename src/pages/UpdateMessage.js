@@ -24,11 +24,13 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
         }
     };
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
+    const onSubmitClick = async (event) => {
         console.log("여기는 되지");
+        // console.log(sleepInfo.message);
+        const messageArray = [message, ...sleepInfo.message];
+        console.log(messageArray);
         await dbService.doc(`수면정보/${sleepInfo.id}`).update({
-            message,
+            message: messageArray,
         });
         setMessage("");
         navigate("/messages");
@@ -47,7 +49,7 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
                 );
                 console.log(mySleepInfo);
                 setSleepInfo(mySleepInfo);
-                setMessage(mySleepInfo.message);
+                setMessage(mySleepInfo.message[0]);
             });
             setSleepInfoInit(true);
         }
@@ -85,7 +87,7 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
                     </div>
                 )}
                 {sleepInfoInit ? (
-                    <FormField onSubmit={onSubmit}>
+                    <FormField>
                         <InputField
                             style={{ height: "300px" }}
                             value={message}
@@ -100,7 +102,11 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
                                     <Text>뒤로 가기</Text>
                                 </Link>
                             </Button>
-                            <Button type="submit" style={{ width: "45%" }}>
+                            <Button
+                                type="submit"
+                                style={{ width: "45%" }}
+                                onClick={onSubmitClick}
+                            >
                                 저장
                             </Button>
                         </Flex>
