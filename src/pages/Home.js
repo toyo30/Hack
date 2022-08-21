@@ -341,7 +341,7 @@ const BottomBox = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    border-top: rgb(100, 100, 100) solid 1px;
+    border-top: rgb(100, 100, 100) solid 0px;
     background-color: #8a8ba633;
 
     font-family: "NEXON Lv1 Gothic OTF";
