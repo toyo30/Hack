@@ -419,6 +419,7 @@ const Home = ({ isLoggedIn, userObj }) => {
 };
 
 export default Home;
+
 const Box = styled.div`
     display: absolute;
     background: linear-gradient(#232226, #3c4659, #898aa5);
@@ -430,13 +431,13 @@ const Box = styled.div`
     justify-content: space-between;
 `;
 
-const BottomBox = styled.div`
-    display: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+const BottomBox =  styled.div`
+  display: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
     border-top: rgb(100, 100, 100) solid 1px;
     background-color: #8a8ba633;
 

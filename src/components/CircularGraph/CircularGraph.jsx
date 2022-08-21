@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import useCustomTime from "../../zustand/useCustomTime";
 
 const COLOR = {
   active: "#F28888",
@@ -9,6 +10,7 @@ const COLOR = {
 
 const CircularGraph = ( { shake, start, end }) => {
   const [ active, setActive ] = useState(false);
+  const customTime = useCustomTime();
 
   useEffect( () => {
     setTimeout( () => {
@@ -38,6 +40,14 @@ const CircularGraph = ( { shake, start, end }) => {
         </div>
       </div>
       <div className="center">
+        <div className={`digital ${active ? "show" : ""}`}>
+          {customTime.hour.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
+          {customTime.minute.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}:
+          {customTime.second.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false })}
+        </div>
+        <AnalogueClock hour={customTime.hour} minute={customTime.minute} show={active}>
+          <div />
+        </AnalogueClock>
       </div>
       { Array(24).fill(1).map( (_, index) => (
         <Divider key={index} degree={active ? index * 15 : 0} >
@@ -84,11 +94,11 @@ const Wrapper = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 1/ 1;
-  animation: fadeIn 1s ${({shake}) => shake ? ", shake 1s 1.5s infinite" : ""};
+  animation: fadeIn 1s ${({shake}) => shake ? ", shake 1s 2.5s infinite" : ""};
   
 
   * {
-    transition: transform 0.5s;
+    transition: transform 1.5s;
   }
 
   .background {
@@ -157,6 +167,37 @@ const Wrapper = styled.div`
     aspect-ratio: 1/ 1;
     border-radius: 100%;
     background-color: ${COLOR.background};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > div.digital {
+      color: white;
+      font-weight: 400;
+      font-size: 40px;
+      opacity: 0;
+      &.show {
+        opacity: 1;
+        transition: opacity 1s;
+      }
+    }
+  }
+`;
+
+const AnalogueClock = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  transform: rotate( ${({hour, minute}) => hour * (360 / 24) + minute * (360 / 24 / 60) }deg );
+
+  > div {
+    width: 5px;
+    height: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: ${({show}) => show ? 1 : 0 };
+    transition: opacity 1s;
   }
 `;
 
