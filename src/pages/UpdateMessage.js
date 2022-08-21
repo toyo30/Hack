@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { dbService, storageService } from "fbase";
 import styled, { css } from "styled-components";
 import Page from "../components/Page";
@@ -7,6 +7,8 @@ import NavBar from "components/NavBar";
 import Text from "../components/Text";
 import Button from "../components/Button";
 import InputField from "components/InputField";
+import Link from "components/Link";
+
 
 
 const UpdateMessage = ({ isLoggedIn, userObj }) => {
@@ -56,18 +58,21 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
         <Page>
           <Box>
             {isLoggedIn ? (
-                <Text style={{fontSize: "28px"}}>{userObj.displayName} 님, <br /> 어젯밤 잘 주무셨나요?</Text>
+                <Text style={{fontSize: "28px", lineHeight: "50px", marginTop: "30px"}}>
+                  {userObj.displayName} 님, 
+                  <br /> 어젯밤 잘 주무셨나요?
+                  <Text style={{fontSize: "13px", lineHeight: "50px"}}>오늘 밤의 나에게 보낼 한마디를 작성해주세요</Text>
+                </Text>
             ) : (
-                <ContentBox>
+                <div>
                     지금 로그인되지 않았어요
                     <Link to="/signup"><Button>회원가입</Button></Link>
                     <Link to="/login"><Button>로그인</Button></Link>
                     <Link to="/home"><Button>홈화면</Button></Link>
-                </ContentBox>
+                </div>
             )}
             {sleepInfoInit ? (
-                <ContentBox>
-                    <form onSubmit={onSubmit}>
+                    <FormField onSubmit={onSubmit}>
                         <InputField
                           style={{height: "300px"}}
                             value={message}
@@ -76,9 +81,11 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
                             onChange={onChange}
                             placeholder="오늘 밤의 나에게 한마디"
                         />
-                        <Button type="submit" >저장</Button>
-                    </form>
-                </ContentBox>
+                        <Flex>
+                            <Button style={{width: "45%"}}><Link to="/messages"><Text>뒤로 가기</Text></Link></Button>
+                            <Button type="submit" style={{width: "45%"}}>저장</Button>
+                        </Flex>
+                    </FormField>
             ) : null}
           </Box>
           <NavBar index={0} />
@@ -98,13 +105,22 @@ const Box = styled.div`
     justify-content: space-between;
 `;
 
-
-const ContentBox = styled.div`
-    margin: 0;
-    padding: 0;
+const FormField = styled.form`
+    margin: 0px;
+    padding: 10px 0 50px 0;
     width:90%;
-    height:100%;
-    display:flex
+    height:70%;
+
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
+`;
+
+const Flex=styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width:95%;
+    height:50px;
 `;
