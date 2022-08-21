@@ -44,13 +44,19 @@ const Mypage = ({ isLoggedIn, userObj }) => {
     return (
       <Page>
           {isLoggedIn && sleepInfoInit  ? (
-          <PageBackground>
+          <Box>
             <RecordBox>
               {visible ? (
                 <WeekRecord>
-                  <Text style={{ fontSize: "32px", fontWeight: "600", padding: "10px"}}>{7}시간 수면,</Text>
-                  <Text style={{ fontSize: "28px", padding: "10px", lineHeight: "0px"}}>
-                    이번주에는 {3}번 달성했어요
+                  <Text style={{ 
+                    fontSize: "28px", 
+                    fontWeight: "400",
+                    ontWeight: "500", 
+                    padding: "30px 20px 0 20px",
+                    lineHeight: "50px"}}
+                    >
+                      {7}시간 수면,
+                      <br />이번주에는 {3}번 달성했어요
                   </Text>
                   <div style={{ height: "363px", marginTop: "70px" }}>
                     <Chart style={{ height: "100%" }} />
@@ -58,7 +64,15 @@ const Mypage = ({ isLoggedIn, userObj }) => {
                 </WeekRecord>
               ) : (
                 <AllRecord>
-                  <Text style={{fontSize: "32px", fontWeight: "700", padding: "10px"}}>나의 수면 History</Text>
+                  <Text style={{ 
+                    fontSize: "28px", 
+                    fontWeight: "400",
+                    ontWeight: "500", 
+                    padding: "30px 20px 0 20px",
+                    lineHeight: "50px"}}
+                  >
+                      나의 수면 History
+                  </Text>
                   <div style={{ marginTop: "36px" }}>
                     <p style={{ color: "#3C4659", fontSize: "11px" }}>
                       2022.08.8~14
@@ -123,7 +137,7 @@ const Mypage = ({ isLoggedIn, userObj }) => {
                   </Button>
                   </ButtonBox>
             </RecordBox>
-            </PageBackground>
+            </Box>
           ) : (
             <Box><LoginBox></LoginBox></Box>
           )}
@@ -135,7 +149,13 @@ const Mypage = ({ isLoggedIn, userObj }) => {
 export default Mypage;
 
 const Box = styled.div`
-    background: linear-gradient(#232226, #3c4659, #898aa5);
+
+    background: linear-gradient(
+        180deg,
+        #3c4659 3%,
+        #8a8ba6 17.33%,
+        #ffffff 40%
+    );
     height: 592px;
     width: 100%;
     display: flex;
@@ -144,20 +164,20 @@ const Box = styled.div`
     justify-content: space-between;
 `;
 
-const PageBackground = styled.div`
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-    180deg,
-    #3c4659 0%,
-    #8a8ba6 13.33%,
-    #ffffff 34.16%
-  );
-  background-color: red;
-  padding-top: 16px;
-  box-sizing: border-box;
-  padding-bottom: 75px;
-`;
+// const PageBackground = styled.div`
+//     width: 100%;
+//     height: 100%;
+//     background: linear-gradient(
+//     180deg,
+//     #3c4659 0%,
+//     #8a8ba6 13.33%,
+//     #ffffff 34.16%
+//   );
+//   background-color: red;
+//   padding-top: 16px;
+//   box-sizing: border-box;
+//   padding-bottom: 75px;
+// `;
 
 
 const WeekRecord = styled.div`
