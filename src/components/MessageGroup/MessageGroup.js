@@ -40,7 +40,7 @@ position: relative;
     justify-content: space-between;
     flex-wrap: wrap; 
     background: ${(props) => props.theme.color[props.theme.currentType].boxBackground};
-    padding: 19px 0;
+    padding: 19px 16px;
     
 
 `;
