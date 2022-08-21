@@ -35,14 +35,12 @@ function MessageGroup({type, userName, date, content, children, ...rest}) {
 export default MessageGroup;
 
 const MessageGroupRoot = styled.div`
-position: relative;
+    position: relative;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; 
     background: ${(props) => props.theme.color[props.theme.currentType].boxBackground};
     padding: 19px 16px;
-    
-
 `;
 
 
