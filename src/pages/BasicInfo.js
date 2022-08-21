@@ -63,13 +63,13 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                 <form onSubmit={onSubmit}>
                     <FormSection>
                     <Button style={{width: "310px", height: "60px", margin:"10px"}}>
-                        <select
+                        <Select
                             value={wakeTimeHour}
                             name="wakeTimeHour"
                             onChange={onChange}
                             required
                         >
-                            <option value="">시간선택</option>
+                            <option value="">시 선택 ▾</option>
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -94,33 +94,33 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             <option value="21">21</option>
                             <option value="22">22</option>
                             <option value="23">23</option>
-                        </select>
+                        </Select>
                         <Text style={{margin: "0 10px"}}>시</Text>
-                        <select
+                        <Select
                             value={wakeTimeMinute}
                             name="wakeTimeMinute"
                             onChange={onChange}
                             required
                         >
-                            <option value="">분선택</option>
+                            <option value="">분 선택 ▾</option>
                             <option value="00">00</option>
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
                             <option value="40">40</option>
                             <option value="50">50</option>
-                        </select>
+                        </Select>
                         <Text style={{margin: "0 10px"}}>분에 일어날래요</Text>
                     </Button>
                     <Button style={{width: "310px", height: "60px", margin:"10px"}}>
                         <Text style={{margin: "0 10px"}}>적어도</Text>
-                        <select
+                        <Select
                             value={sleepTime}
                             name="sleepTime"
                             onChange={onChange}
                             required
                         >
-                            <option value="">수면 시간 선택</option>
+                            <option value="">시간 선택 ▾</option>
                             <option value="1">1시간</option>
                             <option value="2">2시간</option>
                             <option value="3">3시간</option>
@@ -133,7 +133,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             <option value="10">10시간</option>
                             <option value="11">11시간</option>
                             <option value="12">12시간</option>
-                        </select>
+                        </Select>
                         <Text style={{margin: "0 10px"}}>시간 잘 거예요.</Text>
                     </Button>
 
@@ -195,4 +195,17 @@ const FormSection = styled.div`
 const Flex = styled.div`
     display: flex;
     flex-direction: column;
+`;
+
+const Select = styled.select`
+    -webkit-appearance: none;
+    -moz-appearance:none;
+    appearance:none;
+    -moz-appearance:textfield;
+
+    border-radius: 8px;
+    width: 72px;
+    height: 25px;
+    background: rgba(242, 244, 246, 0.2);
+    padding-left: 5px;
 `;
