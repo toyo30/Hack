@@ -52,7 +52,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
                 setSleepInfo(mySleepInfo);
                 setSleepTime(mySleepInfo.sleepTime);
                 setWakeTime(mySleepInfo.wakeTime);
-                setMessage(mySleepInfo.message);
+                setMessage(mySleepInfo.message[0]);
                 const wTime = mySleepInfo.wakeTime.split(":");
                 console.log(wTime[1]);
                 setEditWakeTimeHour(wTime[0]);
@@ -83,13 +83,15 @@ const Maxim = ({ isLoggedIn, userObj }) => {
     useEffect(() => {
         // console.log(sleepStartTime.split(":")[0]);
         // console.log(sleepStartTime.split(":")[1]);
+        // console.
         if (
             sleepStartTime.split(":")[0] == customTime.hour &&
             sleepStartTime.split(":")[1] == customTime.minute
         ) {
-            if ( hasMessageSent === false ) {
-            sendMessage();
-            setHasMessageSent(true);
+            if (hasMessageSent === false) {
+                console.log("돼야하는데??");
+                sendMessage();
+                setHasMessageSent(true);
             }
         }
     }, [customTime.second]);

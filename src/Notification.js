@@ -33,20 +33,15 @@ const Notification = ({
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (
-            sleepStartTimeHour == serverTimeHour &&
-            sleepStartTimeMinute == serverTimeMinute &&
-            serverTimeSecond == 0
-        ) {
-            notify();
-            navigator.serviceWorker.ready.then(function (registration) {
-                registration.showNotification(`${notification?.title}`, {
-                    body: `${notification?.body}`,
-                    icon: "../images/touch/chrome-touch-icon-192x192.png",
-                    vibrate: [200, 100, 200, 100, 200, 100, 200],
-                });
+        console.log("시간 같다~");
+        notify();
+        navigator.serviceWorker.ready.then(function (registration) {
+            registration.showNotification(`${notification?.title}`, {
+                body: `${notification?.body}`,
+                icon: "../images/touch/chrome-touch-icon-192x192.png",
+                vibrate: [200, 100, 200, 100, 200, 100, 200],
             });
-        }
+        });
     }, [notification]);
 
     onMessageListener()
