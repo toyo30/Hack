@@ -34,7 +34,8 @@ const Maxim = ({ isLoggedIn, userObj }) => {
     const [sleepStartTime, setSleepStartTime] = useState("");
     const [sleepStartTimeInit, setSleepStartTimeInit] = useState(false);
     const [message, setMessage] = useState("");
-    const [hasMessageSent, setHasMessageSent] = useState(false);
+    const [hasMyMessageSent, setHasMyMessageSent] = useState(false);
+    const [hasMaximSent, setHasMaximSent] = useState(false);
     const customTime = useCustomTime();
     // console.log(customTime);
 
@@ -80,6 +81,10 @@ const Maxim = ({ isLoggedIn, userObj }) => {
 
     //메세지 보내는 부분
 
+    const validateHour = ( hour ) => {
+      return hour === 24 ? 0 : hour;
+    }
+
     useEffect(() => {
         // console.log(sleepStartTime.split(":")[0]);
         // console.log(sleepStartTime.split(":")[1]);
@@ -87,9 +92,18 @@ const Maxim = ({ isLoggedIn, userObj }) => {
             sleepStartTime.split(":")[0] == customTime.hour &&
             sleepStartTime.split(":")[1] == customTime.minute
         ) {
-            if ( hasMessageSent === false ) {
+            if ( hasMyMessageSent === false ) {
             sendMessage();
-            setHasMessageSent(true);
+            setHasMyMessageSent(true);
+            }
+        }
+        if (
+          sleepStartTime.split(":")[0] == validateHour(customTime.hour + 1) && 
+          sleepStartTime.split(":")[1] == customTime.minute
+        ) {
+            if ( hasMaximSent === false ) {
+              sendMaxim();
+              setHasMaximSent(true);
             }
         }
     }, [customTime.second]);
@@ -103,7 +117,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         requestForToken().then((result) => setCurrentDeviceToken(result));
     }, []);
 
-    const target_data = {
+    const target_data_message = {
         to: `${currentDeviceToken}`,
         notification: {
             title: "내가 오늘 아침에 쓴 메시지",
@@ -112,11 +126,20 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         },
     };
 
+    const target_data_maxim = {
+      to: `${currentDeviceToken}`,
+      notification: {
+          title: "1시간 전!",
+          body: `${maximList[0]}`,
+          click_action: "localhost:3000/messages",
+      },
+  };
+
     // body: `${maximList[Math.floor(Math.random() * 12)]}`,
 
     const sendMessage = () => {
         axios
-            .post(url, target_data, config)
+            .post(url, target_data_message, config)
             .then((response) => {
                 console.log(response);
             })
@@ -124,6 +147,17 @@ const Maxim = ({ isLoggedIn, userObj }) => {
                 console.log(error);
             });
     };
+
+    const sendMaxim = () => {
+      axios
+          .post(url, target_data_maxim, config)
+          .then((response) => {
+              console.log(response);
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+  };
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -149,7 +183,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
                         <div>자야 하는 시간 {sleepStartTime}</div>
                     </div>
                 ) : null}
-                <button>버튼</button>
+                <button onClick={ () => sendMessage() }>버튼</button>
                 <Notification
                     sleepStartTimeHour={sleepStartTime.split(":")[0]}
                     sleepStartTimeMinute={sleepStartTime.split(":")[1]}
