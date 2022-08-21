@@ -35,19 +35,19 @@ const Messages = ({ isLoggedIn, userObj }) => {
     }, [userObj]);
 
     const upBox = (e) => {
-        console.log(down);
-        console.log(e);
-       console.log(e.target.value);
-       
-            setUp(true);
-
+      if ( down ) {
+        setDown(false);
+      } else {
+        setUp(true);
+      }
     };
 
     const downBox = (e) => {
-         if(down){
-            setUp(false);
+        if(up){
+          setUp(false);
+        } else {
+          setDown(true);
         }
-       setDown(true);
     };
 
     return (
@@ -70,8 +70,8 @@ const Messages = ({ isLoggedIn, userObj }) => {
                         <MessageBox/>
                     </MessageGroup>
                     <MessageButtonBox>
-                        <Button onClick={(e) => {upBox(e)}} style={{background: '#81839E', width:'50%', borderRadius:'border-radius: 3px', borderTopLeftRadius: '0px', borderTopRightRadius: '0px', }}>From 재우미 친구들</Button>
-                        <Button onClick={downBox} style={{color: 'rgba(60, 70, 89, 0.87)', background: '#FBFBFB', width:'50%',  borderRadius:'border-radius: 3px', borderBottomLeftRadius: '0px', borderBottomRightRadius: '0px', }}>From 과거의 나</Button>
+                        <Button onClick={downBox} style={{background: '#81839E', width:'50%', borderRadius:'border-radius: 3px', borderTopLeftRadius: '0px', borderTopRightRadius: '0px', }}>From 재우미 친구들</Button>
+                        <Button onClick={upBox} style={{color: 'rgba(60, 70, 89, 0.87)', background: '#FBFBFB', width:'50%',  borderRadius:'border-radius: 3px', borderBottomLeftRadius: '0px', borderBottomRightRadius: '0px', }}>From 과거의 나</Button>
                         
                     </MessageButtonBox>
                     <MessageGroup type="day">
@@ -118,15 +118,15 @@ const MessageContainer = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
-    transition-duration:0.5s; transition-delay:1s; transition-timing-function: ease-in;
+    transition: 0.5s;
     height: 1200px;
     transform: translateY(-260px);
 
     &.up-box {
-       transform: translateY(-500px);
+       transform: translateY(-545px);
     }
 
     &.down-box {    
-        transform: translateY(-10px);
+        transform: translateY(0px);
     }
 `;

@@ -51,7 +51,8 @@ function MessageBox({add, type, userName, date, content, children, ...rest}) {
 export default MessageBox;
 
 const MessageBoxRoot = styled.div`
-  width: 168px;
+  //width: 168px;
+  width: 150px;
   height: 150px;
   border-radius: 23.5px;
   background: ${(props) => props.theme.color[props.theme.currentType].background};
