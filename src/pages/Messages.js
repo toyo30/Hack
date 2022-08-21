@@ -8,7 +8,7 @@ import MessageGroup from '../components/MessageGroup';
 import styled from "styled-components";
 import Button from '../components/Button';
 import Link from '../components/Link';
-
+import LoginBox from "components/LoginBox";
 
 const Messages = ({ isLoggedIn, userObj }) => {
     const navigate = useNavigate();
@@ -82,31 +82,30 @@ const Messages = ({ isLoggedIn, userObj }) => {
                 </MessageContainer>
                 </div>
             ) : (
-                <div>
-                    홈화면입니다. 지금 로그인되지 않았어요
-                    <Link to="/signup"><Button>회원가입</Button></Link>
-                    <Link to="/login"><Button>로그인</Button></Link>
-                    <Link to="/home"><Button>홈화면</Button></Link>
-                </div>
+                <Box><LoginBox></LoginBox></Box>
             )}
-            {/* {sleepInfoInit ? (
-                <div>
-                    <div>내일 기상시간 : {wakeTime}</div>
-                    <div>수면시간 : {sleepTime}</div>
-                </div>
-            ) : null} */}
-            
-            {/* <Link to="/mypage">마이페이지로 이동하기</Link> */}
             <NavBar index={0} style={{
                 zIndex: 134,
                 background: '#FFFFFF',
-            }}/>
+            }}
+            />
         </Page>
     );
 };
 
 export default Messages;
 
+
+
+const Box = styled.div`
+    background: linear-gradient(#232226, #3c4659, #898aa5);
+    height: 592px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+`;
 
 const MessageButtonBox = styled.div`
     display: flex;

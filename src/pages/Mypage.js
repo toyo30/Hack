@@ -8,6 +8,7 @@ import NavBar from "components/NavBar";
 import Text from "components/Text";
 import Typography from "../components/Typography";
 import styled, {css} from "styled-components";
+import LoginBox from "components/LoginBox";
 
 const Mypage = ({ isLoggedIn, userObj }) => {
     const [sleepTime, setSleepTime] = useState("");
@@ -42,18 +43,13 @@ const Mypage = ({ isLoggedIn, userObj }) => {
 
     return (
       <Page>
-        <PageBackground>
           {isLoggedIn ? (
             <></>
           ) : (
-            <div>
-              <Text>지금 로그인되지 않았어요</Text>
-              <Link to="/signup"><Button>회원가입</Button></Link>
-              <Link to="/login"><Button>로그인</Button></Link>
-              <Link to="/home"><Button>홈</Button></Link>
-            </div>
+            <Box><LoginBox></LoginBox></Box>
           )}
           {sleepInfoInit ? (
+          <PageBackground>
             <RecordBox>
               {visible ? (
                 <WeekRecord>
@@ -131,20 +127,25 @@ const Mypage = ({ isLoggedIn, userObj }) => {
                     내 Sleep History 더보기
                   </Button>
                   </ButtonBox>
-                  <>
-                      <>
-                      </>
-                  </>
             </RecordBox>
+            </PageBackground>
           ) : null}
           <NavBar index={2} />
-        </PageBackground>
       </Page>
     );
 };
 
 export default Mypage;
 
+const Box = styled.div`
+    background: linear-gradient(#232226, #3c4659, #898aa5);
+    height: 592px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+`;
 
 const PageBackground = styled.div`
     width: 100%;
@@ -181,15 +182,6 @@ const RecordBox = styled.div`
   height: 100%;
   box-sizing: border-box;
 `;
-
-// const ButtonBorder = styled.div`
-//   position: absolute;
-//   width: 100%;
-//   height: 20px;
-//   bottom: 48px;
-//   padding-bottom: 24px;
-//   background: #50586E;
-// `;
 
 const ButtonBox = styled.div`
   position: absolute;
