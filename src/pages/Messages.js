@@ -62,7 +62,7 @@ const Messages = ({ isLoggedIn, userObj }) => {
                         boxSizing: "border-box",
                         height: "100%",
                         background:
-                            "linear-gradient(180deg, #232226 0%, #3C4659 13.02%, #8A8BA6 44.27%, #FBFBFB 90.1%)",
+                            "#FBFBFB",
                         overflow: "hidden",
                     }}
                 >
