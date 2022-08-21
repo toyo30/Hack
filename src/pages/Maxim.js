@@ -34,7 +34,7 @@ const Maxim = ({ isLoggedIn, userObj }) => {
     const [sleepStartTime, setSleepStartTime] = useState("");
     const [sleepStartTimeInit, setSleepStartTimeInit] = useState(false);
     const [message, setMessage] = useState("");
-
+    const [hasMessageSent, setHasMessageSent] = useState(false);
     const customTime = useCustomTime();
     // console.log(customTime);
 
@@ -87,8 +87,10 @@ const Maxim = ({ isLoggedIn, userObj }) => {
             sleepStartTime.split(":")[0] == customTime.hour &&
             sleepStartTime.split(":")[1] == customTime.minute
         ) {
-            // console.log("됐다!!");
+            if ( hasMessageSent === false ) {
             sendMessage();
+            setHasMessageSent(true);
+            }
         }
     }, [customTime.second]);
 
