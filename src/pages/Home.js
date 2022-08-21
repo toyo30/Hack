@@ -308,6 +308,7 @@ const Home = ({ isLoggedIn, userObj }) => {
 };
 
 export default Home;
+
 const Box = styled.div`
     display: absolute;
     background: linear-gradient(#232226, #3c4659, #898aa5);
