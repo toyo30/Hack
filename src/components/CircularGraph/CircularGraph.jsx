@@ -223,7 +223,6 @@ const AnalogueClock = styled.div`
   display: flex;
   justify-content: center;
   transform: rotate( ${({hour, minute}) => hour * (360 / 24) + minute * (360 / 24 / 60) }deg );
-  transition: transform ${TRANSITION_TIME}s;
 
   > div {
     width: 5px;
