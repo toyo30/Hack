@@ -9,6 +9,8 @@ import Button from "../components/Button";
 import NavBar from "components/NavBar";
 import CircularGraph from "components/CircularGraph";
 import LoginBox from "components/LoginBox";
+import Maxim from "./Maxim";
+import useCustomTime from "../zustand/useCustomTime";
 
 const Home = ({ isLoggedIn, userObj }) => {
 
@@ -18,7 +20,10 @@ const Home = ({ isLoggedIn, userObj }) => {
     const [sleepInfoInit, setSleepInfoInit] = useState(false);
     const [sleepInfoInit2, setSleepInfoInit2] = useState(false);
     const [sleepStartTime, setSleepStartTime] = useState(""); // 자야하는 시각 ex) 22:30
+    const [ isAlarmOn, setIsAlarmOn ] = useState( false );
+    const [ hasAlarmRang, setHasAlarmRang ] = useState( false );
 
+    const customTime = useCustomTime();
     const navigate = useNavigate();
 
     //db에 있는 수면 정보 가져오는 부분 (sleepTime, wakeTime)
@@ -166,6 +171,17 @@ const Home = ({ isLoggedIn, userObj }) => {
         }
     }, [whenToSleep, whenToWake, isClockInfoSet]);
 
+
+    //아침 알람
+    useEffect( () => {
+      if (
+        wakeTime.split(":")[0] == customTime.hour &&
+        wakeTime.split(":")[1] == customTime.minute
+      ) {
+        setIsAlarmOn(true);
+      }
+    }, [customTime]);
+
     return (
         <Page>
             <Box>
@@ -181,7 +197,7 @@ const Home = ({ isLoggedIn, userObj }) => {
                                 paddingLeft: "280px",
                                 fontSize: "9px",
                                 height: "9px",
-                                marginBottom: "40px",
+                                marginTop: "-20px",
                                 color: "gray"
                             }}
                         >
@@ -197,8 +213,14 @@ const Home = ({ isLoggedIn, userObj }) => {
 
                 {isClockInfoSet && isClockInfoSet2 ? (
                     <>
-                        <div style={{ width: "90%", marginTop: "5px" }}>
-                            <CircularGraph start={startDeg} end={endDeg} />
+                        <div style={{ width: "90%", marginTop: "-30px"}} onClick={ () => {
+                          setIsAlarmOn( false );
+                          if ( isAlarmOn ) {
+                            navigate("/updatemessage");
+                          }
+                        }
+                        }>
+                            <CircularGraph start={startDeg} end={endDeg} shake={isAlarmOn} />
                         </div>
 
                         <BottomBox>
@@ -295,6 +317,7 @@ const Home = ({ isLoggedIn, userObj }) => {
                 ) : null}
 
             </Box>
+            <Maxim isLoggedIn={isLoggedIn} userObj={userObj} />
             <NavBar index={1} />
         </Page>
     );

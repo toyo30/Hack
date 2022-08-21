@@ -169,21 +169,6 @@ const Maxim = ({ isLoggedIn, userObj }) => {
 
     return (
         <>
-            <Page>
-                {setSleepStartTimeInit ? (
-                    <div>
-                        <div>
-                            현재시간{" "}
-                            {customTime.hour +
-                                ":" +
-                                customTime.minute +
-                                ":" +
-                                customTime.second}
-                        </div>
-                        <div>자야 하는 시간 {sleepStartTime}</div>
-                    </div>
-                ) : null}
-                <button onClick={() => sendMessage()}>버튼</button>
                 <Notification
                     sleepStartTimeHour={sleepStartTime.split(":")[0]}
                     sleepStartTimeMinute={sleepStartTime.split(":")[1]}
@@ -191,7 +176,6 @@ const Maxim = ({ isLoggedIn, userObj }) => {
                     serverTimeMinute={customTime.minute}
                     serverTimeSecond={customTime.second}
                 />
-            </Page>
         </>
     );
 };
