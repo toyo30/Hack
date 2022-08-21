@@ -126,11 +126,31 @@ const Maxim = ({ isLoggedIn, userObj }) => {
         },
     };
 
+    const target_data_maxim = {
+        to: `${currentDeviceToken}`,
+        notification: {
+            title: "1시간 전!",
+            body: `${maximList[0]}`,
+            click_action: "localhost:3000/messages",
+        },
+    };
+
     // body: `${maximList[Math.floor(Math.random() * 12)]}`,
 
     const sendMessage = () => {
         axios
-            .post(url, target_data, config)
+            .post(url, target_data_message, config)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const sendMaxim = () => {
+        axios
+            .post(url, target_data_maxim, config)
             .then((response) => {
                 console.log(response);
             })
