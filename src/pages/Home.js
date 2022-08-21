@@ -66,37 +66,6 @@ const Home = ({ isLoggedIn, userObj }) => {
         setSleepInfoInit2(true);
     }, [wakeTime, sleepTime, sleepInfoInit]);
 
-    //이제 필요 없는 부분의 시작
-
-    // const onChange = (event) => {
-    //     const {
-    //         target: { name, value },
-    //     } = event;
-    //     if (name === "editWakeTimeHour") {
-    //         setEditWakeTimeHour(value);
-    //     } else if (name === "editWakeTimeMinute") {
-    //         setEditWakeTimeMinute(value);
-    //     } else if (name === "editSleepTime") {
-    //         setEditSleepTime(value);
-    //     }
-    // };
-
-    // const onSubmit = async (e) => {
-    //     e.preventDefault();
-    //     console.log(sleepInfo);
-    //     console.log(wakeTimeHour, wakeTimeMinute, sleepTime);
-    //     await dbService.doc(`수면정보/${sleepInfo.id}`).update({
-    //         wakeTime: editWakeTimeHour + ":" + editWakeTimeMinute,
-    //         sleepTime: editSleepTime,
-    //     });
-
-    //     setEditSleepTime("");
-
-    //     navigate("/home");
-    // };
-
-    //이제 필요 없는 부분의 끝
-
     //converter의 시작 부분
 
     const whenToWakeToWakeTime = (t) => {
@@ -212,17 +181,25 @@ const Home = ({ isLoggedIn, userObj }) => {
             <Box>
                 {isLoggedIn ? (
                     <>
-                        <Text style={{ fontSize: "24px" }}>
-                            {userObj.displayName} 님, 잘 잡시다.
-                        </Text>
-                        <Button
+                        <Text
                             onClick={() => {
                                 authService.signOut();
                                 navigate("/");
                             }}
+                            style={{
+                                cursor: "pointer",
+                                paddingLeft: "280px",
+                                fontSize: "9px",
+                                height: "9px",
+                                marginBottom: "40px",
+                                color: "gray"
+                            }}
                         >
                             로그아웃
-                        </Button>
+                        </Text>
+                        <Text style={{ fontSize: "24px" }}>
+                            {userObj.displayName} 님, 잘 잡시다.
+                        </Text>
                     </>
                 ) : (
                     <LoginBox></LoginBox>
