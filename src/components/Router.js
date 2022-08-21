@@ -19,7 +19,7 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                 <Route
                     path="/"
                     element={
-                        <Start
+                        <First
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}
@@ -50,16 +50,6 @@ const AppRouter = ({ isLoggedIn, userObj, setUserObj }) => {
                     path="/home"
                     element={
                         <Home
-                            isLoggedIn={isLoggedIn}
-                            userObj={userObj}
-                            setUserObj={setUserObj}
-                        />
-                    }
-                ></Route>
-                <Route
-                    path="/first"
-                    element={
-                        <First
                             isLoggedIn={isLoggedIn}
                             userObj={userObj}
                             setUserObj={setUserObj}
