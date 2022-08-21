@@ -48,7 +48,7 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
                 );
                 console.log(mySleepInfo);
                 setSleepInfo(mySleepInfo);
-                setMessage("");
+                // setMessage(mySleepInfo.message[0]);
             });
             setSleepInfoInit(true);
         }

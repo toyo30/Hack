@@ -58,7 +58,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             fontSize: "29px",
                             lineHeight: "50px",
                             fontWeight: "700",
-                            paddingTop: "25px"
+                            paddingTop: "25px",
                         }}
                     >
                         기본 정보를 입력해주세요
@@ -117,11 +117,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                             >
                                 <option value="">선택 ▾</option>
                                 <option value="00">00</option>
-                                <option value="10">10</option>
-                                <option value="20">20</option>
                                 <option value="30">30</option>
-                                <option value="40">40</option>
-                                <option value="50">50</option>
                             </Select>
                             <Text style={{ margin: "0 10px" }}>
                                 분에 일어날래요
@@ -167,7 +163,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                                 height: "200px",
                                 margin: "10px 10px 30px 10px",
                                 cursor: "default",
-                                paddingTop: "20px"
+                                paddingTop: "20px",
                             }}
                         >
                             <Flex>
@@ -186,7 +182,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                                         margin: "0",
                                         cursor: "text",
                                         margin: "0 0 20px 0 ",
-                                        paddingBottom: "50px"
+                                        paddingBottom: "50px",
                                     }}
                                     name="message"
                                     type="text"
@@ -199,7 +195,7 @@ const BasicInfo = ({ isLoggedIn, userObj }) => {
                         </Button>
 
                         <InputField
-                            style={{ width: "310px"}}
+                            style={{ width: "310px" }}
                             type="submit"
                             value="시작하기"
                         />
@@ -234,7 +230,6 @@ const Box = styled.body`
     align-items: center;
     justify-content: space-around;
 `;
-
 
 const Flex = styled.div`
     display: flex;
