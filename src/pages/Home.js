@@ -194,7 +194,7 @@ const Home = ({ isLoggedIn, userObj }) => {
     }, [isClockInfoSet, whenToWake, sleepingTimeCent]);
 
     useEffect(() => {
-        if (isClockChanging) {
+        if (isClockInfoSet || isClockChanging) {
             setStartDeg(() => {
                 if (whenToSleep > 1200) {
                     //왼쪽으로 가야 한다
@@ -205,15 +205,25 @@ const Home = ({ isLoggedIn, userObj }) => {
             });
             setEndDeg((whenToWake / 100) * (360 / 24));
         }
-    }, [whenToSleep, whenToWake]);
+    }, [whenToSleep, whenToWake, isClockInfoSet]);
 
     return (
         <Page>
             <Box>
                 {isLoggedIn ? (
-                    <Text style={{ fontSize: "24px" }}>
-                        {userObj.displayName} 님, 잘 잡시다.
-                    </Text>
+                    <>
+                        <Text style={{ fontSize: "24px" }}>
+                            {userObj.displayName} 님, 잘 잡시다.
+                        </Text>
+                        <Button
+                            onClick={() => {
+                                authService.signOut();
+                                navigate("/");
+                            }}
+                        >
+                            로그아웃
+                        </Button>
+                    </>
                 ) : (
                     <div>
                         <Text>지금 로그인되지 않았어요</Text>
@@ -431,13 +441,13 @@ const Box = styled.div`
     justify-content: space-between;
 `;
 
-const BottomBox =  styled.div`
-  display: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+const BottomBox = styled.div`
+    display: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     border-top: rgb(100, 100, 100) solid 1px;
     background-color: #8a8ba633;
 

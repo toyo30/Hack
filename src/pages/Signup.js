@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { authService, dbService } from "fbase";
-import { useNavigate} from "react-router-dom";
-import styled, {css} from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import styled, { css } from "styled-components";
 import Link from "../components/Link";
 import Page from "../components/Page";
 import Text from "../components/Text";
@@ -55,9 +55,12 @@ const Signup = ({ isLoggedIn }) => {
         <Page>
             <Box>
                 {isLoggedIn ? (
-                    <span>이미 가입된 회원이에요</span>
+                    <></>
                 ) : (
-                    <Flex><Text style={{fontSize: "36px"}}>회원가입</Text><Logo></Logo></Flex>
+                    <Flex>
+                        <Text style={{ fontSize: "36px" }}>회원가입</Text>
+                        <Logo></Logo>
+                    </Flex>
                 )}
                 <form onSubmit={onSubmit}>
                     <FormSection>
@@ -100,12 +103,13 @@ const Signup = ({ isLoggedIn }) => {
                         {error}
                     </div>
                 )}
-                
-                <Link to="/login"><Text>로그인하러 가기</Text></Link>
-                
+
+                <Link to="/login">
+                    <Text>로그인하러 가기</Text>
+                </Link>
+
                 {/* <Link to="/signup">회원가입 화면으로 이동하기</Link>
                 <Link to="/home">홈화면으로 이동하기</Link> */}
-
             </Box>
         </Page>
     );
@@ -114,7 +118,7 @@ const Signup = ({ isLoggedIn }) => {
 export default Signup;
 
 const Box = styled.body`
-    background: linear-gradient(#232226, #3C4659, #898AA5);  
+    background: linear-gradient(#232226, #3c4659, #898aa5);
     height: 100%;
     width: 100%;
 
@@ -133,8 +137,7 @@ const FormSection = styled.div`
     flex-direction: column;
 `;
 
-
-const InputField=styled.input`
+const InputField = styled.input`
     display: inline-flex;
     align-items: center;
     justify-content: center;
