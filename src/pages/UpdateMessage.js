@@ -25,7 +25,6 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
     };
 
     const onSubmitClick = async (event) => {
-        console.log("여기는 되지");
         // console.log(sleepInfo.message);
         const messageArray = [message, ...sleepInfo.message];
         console.log(messageArray);
@@ -49,7 +48,7 @@ const UpdateMessage = ({ isLoggedIn, userObj }) => {
                 );
                 console.log(mySleepInfo);
                 setSleepInfo(mySleepInfo);
-                setMessage(mySleepInfo.message[0]);
+                setMessage("");
             });
             setSleepInfoInit(true);
         }
