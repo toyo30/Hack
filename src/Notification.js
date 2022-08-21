@@ -33,14 +33,17 @@ const Notification = ({
 
     const navigate = useNavigate();
     useEffect(() => {
-        notify();
-        navigator.serviceWorker.ready.then(function (registration) {
+      if (notification?.title) {
+      notify();
+      navigator.serviceWorker.ready.then(function (registration) {
             registration.showNotification(`${notification?.title}`, {
                 body: `${notification?.body}`,
                 icon: "../images/touch/chrome-touch-icon-192x192.png",
                 vibrate: [200, 100, 200, 100, 200, 100, 200],
             });
         });
+    }
+        
     }, [notification]);
 
     onMessageListener()
