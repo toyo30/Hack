@@ -33,12 +33,7 @@ const Notification = ({
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (
-            sleepStartTimeHour == serverTimeHour &&
-            sleepStartTimeMinute == serverTimeMinute &&
-            serverTimeSecond == 0
-        ) {
-            notify();
+        notify();
             navigator.serviceWorker.ready.then(function (registration) {
                 registration.showNotification(`${notification?.title}`, {
                     body: `${notification?.body}`,
@@ -46,7 +41,6 @@ const Notification = ({
                     vibrate: [200, 100, 200, 100, 200, 100, 200],
                 });
             });
-        }
     }, [notification]);
 
     onMessageListener()
