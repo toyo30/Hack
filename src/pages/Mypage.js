@@ -43,12 +43,7 @@ const Mypage = ({ isLoggedIn, userObj }) => {
 
     return (
       <Page>
-          {isLoggedIn ? (
-            <></>
-          ) : (
-            <Box><LoginBox></LoginBox></Box>
-          )}
-          {sleepInfoInit ? (
+          {isLoggedIn && sleepInfoInit  ? (
           <PageBackground>
             <RecordBox>
               {visible ? (
@@ -129,7 +124,9 @@ const Mypage = ({ isLoggedIn, userObj }) => {
                   </ButtonBox>
             </RecordBox>
             </PageBackground>
-          ) : null}
+          ) : (
+            <Box><LoginBox></LoginBox></Box>
+          )}
           <NavBar index={2} />
       </Page>
     );
