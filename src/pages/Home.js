@@ -57,8 +57,7 @@ const Home = ({ isLoggedIn, userObj }) => {
         setSleepStartTime(hr + ":" + wakeTime.split(":")[1]);
         setSleepInfoInit2(true);
     }, [wakeTime, sleepTime, sleepInfoInit]);
-
-
+    
     const whenToWakeToWakeTime = (t) => {
         console.log(t);
         let result;
@@ -172,17 +171,25 @@ const Home = ({ isLoggedIn, userObj }) => {
             <Box>
                 {isLoggedIn ? (
                     <>
-                        <Text style={{ fontSize: "24px" }}>
-                            {userObj.displayName} 님, 잘 잡시다.
-                        </Text>
-                        <Button
+                        <Text
                             onClick={() => {
                                 authService.signOut();
                                 navigate("/");
                             }}
+                            style={{
+                                cursor: "pointer",
+                                paddingLeft: "280px",
+                                fontSize: "9px",
+                                height: "9px",
+                                marginBottom: "40px",
+                                color: "gray"
+                            }}
                         >
                             로그아웃
-                        </Button>
+                        </Text>
+                        <Text style={{ fontSize: "24px" }}>
+                            {userObj.displayName} 님, 잘 잡시다.
+                        </Text>
                     </>
                 ) : (
                     <LoginBox></LoginBox>
