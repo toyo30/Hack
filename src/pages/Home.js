@@ -11,9 +11,6 @@ import CircularGraph from "components/CircularGraph";
 import LoginBox from "components/LoginBox";
 
 const Home = ({ isLoggedIn, userObj }) => {
-    // const [editSleepTime, setEditSleepTime] = useState("");
-    // const [editWakeTimeHour, setEditWakeTimeHour] = useState("");
-    // const [editWakeTimeMinute, setEditWakeTimeMinute] = useState("");
 
     const [sleepTime, setSleepTime] = useState(""); // 자야하는 시간 ex) 8시간
     const [wakeTime, setWakeTime] = useState("");
@@ -41,11 +38,6 @@ const Home = ({ isLoggedIn, userObj }) => {
                 setSleepTime(mySleepInfo.sleepTime);
                 setWakeTime(mySleepInfo.wakeTime);
                 setSleepInfoInit(true);
-
-                // const wTime = mySleepInfo.wakeTime.split(":");
-                // console.log(wTime[1]);
-                // setEditWakeTimeHour(wTime[0]);
-                // setEditWakeTimeMinute(wTime[1]);
             });
         }
     }, [userObj]);
@@ -66,38 +58,6 @@ const Home = ({ isLoggedIn, userObj }) => {
         setSleepInfoInit2(true);
     }, [wakeTime, sleepTime, sleepInfoInit]);
 
-    //이제 필요 없는 부분의 시작
-
-    // const onChange = (event) => {
-    //     const {
-    //         target: { name, value },
-    //     } = event;
-    //     if (name === "editWakeTimeHour") {
-    //         setEditWakeTimeHour(value);
-    //     } else if (name === "editWakeTimeMinute") {
-    //         setEditWakeTimeMinute(value);
-    //     } else if (name === "editSleepTime") {
-    //         setEditSleepTime(value);
-    //     }
-    // };
-
-    // const onSubmit = async (e) => {
-    //     e.preventDefault();
-    //     console.log(sleepInfo);
-    //     console.log(wakeTimeHour, wakeTimeMinute, sleepTime);
-    //     await dbService.doc(`수면정보/${sleepInfo.id}`).update({
-    //         wakeTime: editWakeTimeHour + ":" + editWakeTimeMinute,
-    //         sleepTime: editSleepTime,
-    //     });
-
-    //     setEditSleepTime("");
-
-    //     navigate("/home");
-    // };
-
-    //이제 필요 없는 부분의 끝
-
-    //converter의 시작 부분
 
     const whenToWakeToWakeTime = (t) => {
         console.log(t);
@@ -230,7 +190,7 @@ const Home = ({ isLoggedIn, userObj }) => {
 
                 {isClockInfoSet && isClockInfoSet2 ? (
                     <>
-                        <div style={{ width: "90%", marginTop: "30px" }}>
+                        <div style={{ width: "90%", marginTop: "5px" }}>
                             <CircularGraph start={startDeg} end={endDeg} />
                         </div>
 
@@ -327,93 +287,6 @@ const Home = ({ isLoggedIn, userObj }) => {
                     </>
                 ) : null}
 
-                {/* <BottomSection>
-                <Bt>
-                    <Text style={{fontSize: "11px", lineHeight: "16px"}}>{}-분 안에 자면 <br/>{}-시간 수면 목표 달성</Text>
-                    <Text style={{fontSize: "11px", lineHeight: "16px"}}>명언</Text>
-                </Bt>
-
-            {sleepInfoInit ? (
-                <div>
-                    <div>내일 기상시간 :{wakeTime}</div>
-                    <div>수면시간 : {sleepTime}</div>
-                    {sleepStartTime ? (
-                        <div>오늘 {sleepStartTime}에 잠들어야해요!</div>
-                    ) : null}
-                    <div>내일 기상 시간 수정하기</div>
-                    <form onSubmit={onSubmit}>
-                        <select
-                            value={editWakeTimeHour}
-                            name="editWakeTimeHour"
-                            onChange={onChange}
-                            required
-                        >
-                            <option value="">시간선택</option>
-                            <option value="00">00</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                        </select>
-                        <select
-                            value={editWakeTimeMinute}
-                            name="editWakeTimeMinute"
-                            onChange={onChange}
-                            required
-                        >
-                            <option value="">분선택</option>
-                            <option value="00">00</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                            <option value="50">50</option>
-                        </select>
-                        <div>수면 시간 설정하기</div>
-                        <select
-                            value={editSleepTime}
-                            name="editSleepTime"
-                            onChange={onChange}
-                            required
-                        >
-                            <option value="">수면 시간 선택</option>
-                            <option value="1">1시간</option>
-                            <option value="2">2시간</option>
-                            <option value="3">3시간</option>
-                            <option value="4">4시간</option>
-                            <option value="5">5시간</option>
-                            <option value="6">6시간</option>
-                            <option value="7">7시간</option>
-                            <option value="8">8시간</option>
-                            <option value="9">9시간</option>
-                            <option value="10">10시간</option>
-                            <option value="11">11시간</option>
-                            <option value="12">12시간</option>
-                        </select>
-                        <button type="submit">취침 시간 계산하기</button>
-                    </form>
-                </div>
-            ) : null}
-            </BottomSection> */}
             </Box>
             <NavBar index={1} />
         </Page>
